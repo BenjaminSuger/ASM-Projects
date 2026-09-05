@@ -18,3 +18,36 @@ This series of posts follow my learning of assembly programming
 
 ### Programming from the ground up
 Book of programmation with a lot of exercice in ASM
+
+
+## Ressources
+
+A list of all ressources used ; 
+
+[PWN COLLEGE](https://pwn.college/) ; pwn college is program from Arizona State University. everything is free! Labs with videos about cybersecurity. I absolutly love it!
+
+[Algorithms for Modern Hardware](https://en.algorithmica.org/hpc/)
+
+[x86 playlist video form OlivStem](https://www.youtube.com/watch?v=yBO-EJoVDo0&list=PL2EF13wm-hWCoj6tUBGUmrkJmH1972dBB)
+
+[CPU Land](https://cpu.land/)
+
+[Where the top of the stack is on x86](https://eli.thegreenplace.net/2011/02/04/where-the-top-of-the-stack-is-on-x86)
+
+[NASM Tutorial](https://cs.lmu.edu/~ray/notes/nasmtutorial/)
+
+[ASM Tutor](https://asmtutor.com/)
+
+[Learn x86-64 assembly by writing a GUI from scratch](https://gaultier.github.io/blog/x11_x64.html)
+
+[Some Assembly required](https://github.com/hackclub/some-assembly-required/)
+
+[System Inside; ASM](https://0xax.dev/books/asm/)
+
+[(French) Conventions d'appel](https://beta.hackndo.com/conventions-d-appel/)
+
+[(French) Stack introduction](https://beta.hackndo.com/stack-introduction/)
+
+[(French) Assembly Basics](https://beta.hackndo.com/assembly-basics/)
+
+[(French) Introduction a GDB](https://beta.hackndo.com/introduction-a-gdb/)
