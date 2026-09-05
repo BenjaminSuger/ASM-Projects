@@ -1,0 +1,92 @@
+Computer architecture ; the intuitive way 
+
+One of the prerequisite to really understand what we are doing with computers. Is to understand how they are working, what is their architecture.
+I want to share a little bit about that subject because I want to learn assembly programming. If you are interested in following my advancement and learn /  practice with me don’t hesitate to follow along. 
+Now let’s go back to our computers ! 
+
+For obvious reasons, this topic is very broad and  complex, we will see an intuitive form of the information. In the end of this article you’ll see a “resources” section with lectures (like more than 30 hours of content) to go further in the matter.
+
+### The Big Bang
+
+Everything starts at the big bang, they said ! Well, it’s pretty much the same thing with the computers when we are starting it ! 
+
+When you powered up your machine, the CPU (central processing unit) use a firmware (= a software inside an hardware device) to load the operating system like windows or linux. It is called UEFI or BIOS in older systems who is going to search at a specific place the bootloader to start the OS.
+
+The resources to get the OS starting, is located in the DISK, it is our permanent storage. What I called “disk” is a HDD (Hard Disk Drive) or now in more modern form a SSD (Solid-State Drive), but we are going to refer to this as the “disk”.
+
+However, the CPU cannot execute programs directly from the disk at high speed. The data is read from the disk and loaded into RAM (Random Access Memory). Unlike the disk, RAM is volatile (it wipes when powered off), but it is drastically faster. This is where your running OS lives and where your programs are loaded when you launch them. 
+That’s it, the big bang happen and I introduce you to this schema we will use for the rest of this post and goes more in details. Those 3 big blocks will be where all the magics are going to happen.
+ 
+### It’s a loop !  
+
+Before zooming a little bit more inside our magnificent image
+
+Now, each time the CPU needs to read instructions, to do something at some point. The CPU needs to fetch the instructions from the RAM. Once the instructions received the CPU is going to decode them, even him needs to understand what is going on ! Then everything is ready to be executed.  Those three steps called the instructions cycle, was only for one instruction which does not translate to a a lot, it will be repeated until there is nothing to do at all.
+
+### The center of the universe
+
+Now let’s zoom in inside the CPU. The CPU is composed of a lot of different components, I will list them all, but do not be afraid ! Do not panic ! We are not going to use them all or need them all in our quests. It’s just a good thing to know some of them exists and be able to later go a little further in the explanations.
+
+Branch predictor ; try to optimize the path that the code is going to follow and works with the IR
+Instruction Register (IR) ; it is a small data box where stand the actual instruction
+Program Counter (PC) ; get the address of the next instructions
+Control Unit (CU) ; it’s the CU which decode and execute with sending the data at the right place like the ALU
+Arithmetic Logic Unit (ALU) ;  it’s the part doing the mathematics / calculations needed
+Floating Point Unit (FPU) ; it’s doing the calculations needed for floating point
+SIMD ; vectorial calculation
+Registers ; we are going to get back to them later on this post but they stock data, which are going to be used later.
+L1 / L2 cache ; memory data preloaded (see below in this post)
+Memory Management Unit (MMU) ; Translate Virtual Memory addresses to physical memory addresses (it’s hardware)
+Translation Lookaside Buffer (TLB) ; is inside the MMU and is a sort of cache for the MMU.
+Different buses ; they are the connection allowing the CPU to received and get data 
+
+And all that are only present inside ONE core ! Which means when you have several core in your CPU, you’ll have multiple times what we described here. 
+
+### Path to the memory 
+One of the biggest subject in programming with performance in minds is to use the computer architecture the most efficient way. The CPU is built to be used in a specific way with memory and most people try to stick to this use. 
+
+L1 and L2 cache holds data, loaded with the objective to retrieve them faster. L1 cache size is from 32 KB up to 128 KB while L2 cache is up to 512 KB to 2 MB (depending on machine). The computer really preload some data to be able to do that. Why ? it avoids getting the data from the RAM or the DISK (in the worst case) which take more time. 
+
+But there is also a third cache (L3) which is shared through different core. The size of this cache is from 4 MB up to 96 MB, also depending on the CPU. 
+
+One term, you’ll often heard about is “cache miss”, when you don’t find the data in the cache and need to load them from another source. The order is the following ; L1 -> L2 -> L3 -> RAM -> DISK, each one “costing” (= taking more time) more than the previous one. In computer we are talking about CPU cycle. Here is a little idea of the numbers; 
+L1 : 1 to 5 cycles
+L2 : 10 to 15 cycles
+L3 : 40 to 60 cycles
+RAM : 150 to 300 cycles
+DISK : thousands to millions of cycles
+
+But there are also other place where data is store at a lower level, smaller than any cache, but faster ! As fast as 0 cycle !!!
+
+### Registers
+
+Registers are small area of memory, which holds a certain size of data depending on the machine (32 bits or 64 bits on modern computers but can be lower in embedded world).
+This is what we are going to manipulate while writing assembly code, because data will be store there and we will also manipulate them. 
+From now on, I will assume we are on a 64 bit computers, I will not go too much on details about registers on this post as we are going to see them again later. All of them have a name and most of them have a specific goal / usage.
+But here is a list ; 
+
+RIP ; it’s our PC (program counter) seen before, it’s where we store the next instruction.
+RAX ; stock the return values of function and is used to store accumulated value
+RBX ; points to data but needs to be preserved by functions
+RDI ;(Register Destination Index) points to destination for copy and used as 1st argument in functions
+RSI ; (Register Source Index) used for copying memory and used for 2nd argument in functions
+RDX ; stock the values for multiplications and divisions but also used for 3rd arguments in functions
+RCX ; counter for loops but also as 4th arguments in functions
+RBP ; points to the base of the stack frame
+RSP ; point to the top of the stack frame
+R8, R9 ;  5th and 6th arguments in function and general registers 
+R10 to R15 ; general registers
+
+You don’t have to know them by heart, you will use some of them when needed. With practice some are going to be very familiar with time. 
+And……that’s it ! Let’s wrap it up 
+
+### Conclusion 
+
+This post was dense. I’m really sorry about that. But if you followed through, I want to say 2 things; 
+First, congratulations ! It was not an easy piece !
+Second, don’t worry too much about everything explained here. The goal is just to get an idea of how the computers is working behind the scene. Obviously some things were simplified in this explanation because it’s more than a semester at any university of content. If you get a basic idea of all this, it’s way more than necessary for what we are going to do next. 
+
+What are we going to do next by the way ? 
+
+We are going to learn about the different assembly language, then learn about tools needed before doing some practice. We will finally get all the things together to do some neat coding !
+If you liked this post, and want to checkout the series, don’t hesitate to follow me.
