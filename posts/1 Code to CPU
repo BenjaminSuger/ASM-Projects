@@ -1,0 +1,50 @@
+In the previous episode, we started mapping out our goals for learning Assembly programming.
+
+Before even touching assembly, we need to cover some prerequisite knowledge that will make much more sense later. Often in life, when tackling a big subject, the hardest part is figuring out what prerequisites we actually need to understand the topic. Today, we need to explore how we go from our source code to CPU instructions.
+
+Most tutorials will talk about C programming and expect readers to already know the language. Obviously... I'm going to do pretty much the same thing—but don't worry, not exactly.
+
+Today, we will cover not only C compilation (the broader process of creating a binary from our code) but also how other programming languages handle this journey.
+
+If you think about it, at some point, the code we write—or that an AI writes for us—has to be transformed by another piece of software to become an executable.
+
+### C Programming
+
+C is a compiled programming language, meaning we have to use a compiler (another software) to turn it into an executable program we can actually run.
+Because C is considered a low-level language, a lot of assembly tutorials love to talk about it due to how this transformation happens. When you use GCC or Clang (two different compilers), your code goes through four distinct phases:
+•	Phase 1: Preprocessing
+•	Phase 2: Compilation
+•	Phase 3: Assembly
+•	Phase 4: Linking
+
+*Phase 1* is "easy" (well, nothing is ever truly easy). It removes comments and processes everything starting with a #, like #ifndef, #define, etc.
+
+*Phase 2* has a slightly confusing name. The compilation phase is where we actually generate Assembly! Yes, the very same Assembly we are trying to learn. This is the last step where everything is still human-readable. The compiler produces these instructions for the CPU to execute later. This is exactly where we will intervene in future articles: we won't write C code, we will write assembly directly. Pure instructions for our CPU.
+
+*Phase 3* is where we leave the human-readable world. Everything produced by Phase 2 is converted into object files. From here on out, it’s for our machine to use. Even the machine cannot understand raw assembly text; for our hardware, assembly is just a text file at the end of the day. Phase 3 turns it into raw binary.
+
+*Phase 4* is where the Linker appears to bridge the gap between your code and the libraries you used. If your program calls specific library functions, the linker makes sure the executable knows exactly where to find them.
+And that’s it! That’s why people love explaining C compilation: it lets you see very quickly how things work and exactly where we, as assembly programmers, fit into the picture.
+
+*What about other programming languages?*
+
+How do they work? Do you know how Python code is treated? Or Rust? What about Java (no one wants to use Java anyway, haha)?
+While we won't look at every single language out there, let's look at a few main strategies:
+
+### Rust
+
+Rust—easily the most hyped language of recent years, the one everyone is talking about, and maybe the future of programming—is actually pretty similar to C under the hood.
+It doesn't have C's exact Phase 1 (no preprocessor #define). Instead, the Rust compiler performs strict safety checks—which is where most of the love for this language comes from—before producing assembly code and handing it off to a linker.
+
+### Java
+
+Java was created with a very specific philosophy. It uses a virtual machine (the JVM) to get the job done. This isn't the type of virtual machine you run via a hypervisor; we are talking about a "Process Virtual Machine" or "Application Virtual Machine". The Java compiler produces bytecode, which is then executed by the JVM using a JIT (Just-In-Time) compiler.
+Bytecode is not assembly. In Java's standard compilation phase, assembly text is completely skipped.
+
+### Python
+
+Python shares a similar philosophy with Java but approaches it differently. Your code is translated into bytecode, and that bytecode is executed by an interpreter.
+Take CPython, for example (the standard Python tool). CPython itself is written in C—meaning it went through the 4 phases of C compilation we discussed earlier to become an executable on your machine. When you run a script, CPython reads your code, turns it into bytecode, and executes it on its own virtual engine.
+Now you understand a bit better why C is so often used to explain how computers work compared to other languages. There are many compilation and execution strategies out there, and some don't rely on human-readable assembly files at all.
+
+Of course, all of these explanations are simplified. For instance, tools in Java and Python can show you assembly code—not to run it directly, but to let developers inspect what’s happening under the hood. However, this is more than enough to understand how our code goes from raw text to CPU instructions.
