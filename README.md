@@ -4,8 +4,6 @@ This repository will group all my projects in Assembly code.
 
 You'll find here differents directories with projects listed in the below sections but also some Markdown files with explanations of different concepts.
 
-
-
 ## Projects
 
 ### LIBASM
@@ -13,6 +11,10 @@ You'll find here differents directories with projects listed in the below sectio
 
 ### Piscine ASM
 Personnal Project to rewrite most of the piscine exercices (from what I knew back in the days) in assembly
+
+### Posts
+The series of articles I published through diverse media ; medium and dev.to
+This series of posts follow my learning of assembly programming
 
 ### Programming from the ground up
 Book of programmation with a lot of exercice in ASM

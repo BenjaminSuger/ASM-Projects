@@ -1,0 +1,36 @@
+In 2026, in the AI era, why should anyone want to learn Assembly programming? Why would someone want to go that far into the low-level programming world? And why would you want to share a quest that takes so much time with other people—especially one that probably won't interest that many of them?
+
+Initially, I wasn't even a developer. I worked in sales within the financial markets. Some time ago, I decided to leave that world behind to pursue something I’ve always wanted to do: tech, programming, and cybersecurity.
+
+I joined 42 school in Paris, where I live, to learn and practice programming. Before entering the school, we had a month-long selection process called the "Piscine" (the swimming pool). During this intensive month, you have to learn C, complete series of exercises, work on team projects during weekends, and pass four exams. At the end of it, you either get accepted or you don't.
+
+Luckily enough, I was accepted. While we learn many different concepts here, we start with C. 
+
+### But why this obsession with C?	
+
+The C programming language is considered a low-level language. This means it is closer to the machine; you have to do a lot of manual work to achieve even the basics of what Python, JavaScript, or Java do automatically. The school starts with this language to ensure you truly understand what happens "behind the scenes" of how other programming languages work.
+At 42, I have programmed graphical projects, a shell, a library, and more—all in C. This has helped me understand how the digital world actually operates.
+
+### But is C really that low-level?
+
+While it is often considered so, there is a world where you can go even lower. A world where you write instructions directly to your CPU. Those instructions are Assembly.
+At 42, this isn't something you normally encounter until near the end of the Common Core (the mandatory curriculum you must finish before starting a "specialization").
+But exploring this has helped me shape the "whys" I opened this article with.
+
+### Why would you want to learn that?
+
+To become a better computer scientist, and to deeply understand how a computer works and how my code is executed.
+I am also interested in cybersecurity, and I have already tackled some challenges in reverse engineering and binary exploitation. Both are deeply connected to understanding the lowest levels of computers.
+In this AI era, we need highly competent people more than ever. While AI can boost productivity, human analytical thinking remains crucial—perhaps even more so today than before. In a Darwinian system, those who adapt best will survive. There are no shortcuts to becoming one of the best; you have to put in the work, acquire deep knowledge, and dedicate yourself to efforts that most people will shy away from.
+
+There is also a simpler, more candid answer—and I truly mean this: I just want to know how it works, and I love learning about things that fascinate me. This journey will bring me as close to the machine as possible. I want to become a better computer scientist (even if I don't know if I'll ever officially be considered one). But honestly? The other part of it is just that it’s fun. I simply enjoy learning and working on this.
+
+### Why share this journey?
+
+I already share a lot here through various articles. I also run a YouTube channel in French (my native language) and share content across different platforms. The "why" is always the same: I couldn't find the resources I liked, so I decided to create them myself, my way. My hope is that it will help others on their own quest or teach them something new. If I can successfully help just one person, I’ve done my job, and I'm happy to have brought something of value to the table.
+
+### How am I going to do this?
+
+I will share my journey through a series of articles, detailing everything I learn, the resources I use, and the exercises I complete—breaking it all down into short, digestible posts like this one.
+I hope this introduction makes you want to stick around and learn with me. See you soon!
+
