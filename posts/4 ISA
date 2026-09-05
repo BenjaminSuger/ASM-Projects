@@ -1,0 +1,73 @@
+What is ISA in Assembly programming ?  
+
+In our last article we talked about computer architecture, in a very intuitive way or at least as intuitive as we can be for such a broad subject.
+
+The main goal behind all this work is to learn programming in assembly languages, and you can find more details about the why and other things in our previous articles: 
+
+### Tower of Babel
+
+You know the story. Humans were building a tower to reach God, and then, finding us too arrogant (is he scared or something?), he punished human beings with languages, creating a complex situation leading to subprime or whatever… I don't remember the movie anyway.  
+
+Anyway, why would I bring this up? Because it's a very similar story with assembly programming! There isn't one single way to write it, for two main reasons:			
+-ISA	
+-Syntax		
+
+### Instruction Set Architecture (ISA)
+
+I know a lot of resources like to explain the history of CPUs, which explains why we now have different models of CPU. I won't dig into that subject, so as to be more straightforward and get to the point.
+An ISA is defined as follows: An ISA is the boundary between hardware and software. It defines the vocabulary of the CPU: which instructions exist, which registers are available, and how data is handled.
+So, we have different kinds of CPU. Here are the three biggest kinds you'll hear about:
+•	x86 (what we are going to use primarily in this series of articles)
+•	ARM
+•	RISC-V
+
+Obviously there are many more CPUs in the embedded programming world or in HPC (High-Performance Computing) area.
+x86 is from the CISC family (Complex Instruction Set Computer), while ARM and RISC-V are from the RISC family (Reduced Instruction Set Computer).
+
+None of this changes the basics we saw earlier about cache, RAM, disk, etc. But the instructions in assembly are different! The number and names of registers, or the operations, are not called the same way.
+
+### Is one better than the other ? 
+
+Well, the short answer is "No". The longer answer is "Yes, probably, depending on the situation".
+ARM is mostly used in the phone industry. x86 is mostly used in computers like the one you are using. RISC-V is an open-source ISA used in various areas.
+
+The main argument behind them is the trade-off between computing power and energy consumption. At the end of the day, as we said when introducing computers, they only use electricity to flip bits.
+
+Over time we've seen that the idea of "reduced instructions" from the RISC family is losing its grip, while x86 keeps developing and improving its performance a lot. So we don't know yet how things are going to evolve.
+
+But we can talk about Apple, who changed the way of doing things by using ARM in the pursuit of performance: https://www.youtube.com/watch?v=t1oXa68DwDA
+
+### Wait ! Open-Source ?
+
+A little digression from our topic: yes, RISC-V is open-source and is growing in the market.
+If you want to use x86, you'll have to pay Intel or AMD. 
+If you use ARM, you have to pay a license to the company ARM.
+This is a MASSIVE business! Everything touching chips is a MASSIVE business!
+It is also a political problem for China, for Europe, for India, etc. Everybody wants to be as independent as possible. So we are literally living a Cyberpunk 2077 corporate war between companies, involving whole countries.
+That's why open-source is opening up the market a little bit more.
+But once again, it may be too soon to say whether it's a good or a bad thing. History will write itself in the end.
+
+### Syntax
+
+For some reasons, once again history matters but we will not go too deep into it, even on x86 you can write your assembly two different ways ! 
+ 
+The second one is the Intel syntax, while the first one is the AT&T syntax. Some old books and some universities curriculum still use AT&T, but we won’t see that. We will use the Intel syntax.
+
+One of the big differences is the way we write a simple assignment.
+
+We want to put the value 0x42 inside a register; 
+
+Intel ; mov rdi, 0x42
+AT&T ; movq $0x42, %rdi
+
+So while Intel is doing something more like 
+rdi = 0x42 
+
+very close to what we do as programmers usually (destination first, source second).
+
+With the AT&T syntax you are doing ; 
+0x42 = rdi 
+
+Which puts the source first and the destination in second place.
+
+We are going to stick to x86 but you have at least the knowledge sufficient to understand there is way more thing outside our little experiment. 
