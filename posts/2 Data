@@ -1,0 +1,44 @@
+Today, we are going to talk about data.
+
+On our journey toward assembly programming, we need to understand two key ways computers represent data: binary and hexadecimal.
+
+At their core, computer processors only understand one fundamental thing: is the power on (1) or off (0)?
+
+These two states are what we call binary. From this simple representation of 1s and 0s comes everything we use daily on our computers: software, GUIs, CLI, the web browser you are using right now, etc…..
+A single 1 or 0 is called a bit.
+
+When we group these bits together by 4, we use the term nibble.
+When we group these bits together by 8, we use the term  byte.
+
+We are going to deal with these terms all the time. 
+
+In high-level programming, we use types like char, int, or float, which each occupy a specific number of bytes in memory. For instance, a standard integer is typically 4 bytes (32 bits), allowing us to represent a specific range of numbers.
+
+If you want to learn to count with binary, and I highly recommend to know how this works, you can see those videos ; 
+https://www.youtube.com/watch?v=puaaRoWL-Ec
+https://www.youtube.com/watch?v=LpuPe81bc2w
+
+Now you know the principle of binary. But it is extremely impractical to write or read. Imagine having to write or debug something like this in your code:
+11010101000101111101001010100
+
+Not practical at all!
+
+In most programming languages, we write numbers in base 10 (decimal) because ), it’s just easier and natural to you. But there is another crucial base used in low-level programming: hexadecimal.
+Hexadecimal is base 16, using sixteen distinct symbols: 0123456789ABCDEF.
+If you are not familiar with this concept at all, go watch this incredible video ; https://www.youtube.com/watch?v=bt4zavZCrLg
+In that video, you'll see examples like 0x3F8 (which equals 1016 in decimal). We put 0x in front of hexadecimal values so the compiler and developer know it’s in base 16.
+
+### But WHY ?
+
+Why do we use hexadecimal values in assembly and low-level development? Why does it matter so much?
+We use hexadecimal because it is binary in disguise.
+A value like 0xFF translates to binary effortlessly because of one very important property: each character in a hexadecimal string corresponds to exactly one nibble (4 bits).
+0xFF = 1111 1111
+as F = 1111
+This property becomes critical when we start looking at memory addresses. If you are interested in cybersecurity, reverse engineering, or CTFs, mastering this is non-negotiable.
+Another example, if you have a 2-byte value like 0x3A1C and you need to modify the second byte (1C), you can instantly pinpoint where it is. But if you only had its decimal equivalent which is 14876, it would be impossible to know at a glance which digits control which bits in memory.
+This perfect alignment between hexadecimal and binary exists simply because 16 is a power of 2 (2^4=16).
+
+### Conclusion
+
+Now you have everything you need to understand how data is represented at a low level! In the upcoming articles, we will explore the internal structure of the CPU and see what tools we use to manipulate this data.
