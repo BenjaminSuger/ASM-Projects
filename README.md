@@ -32,8 +32,6 @@ Create a program and using arguments (argc, argv)
 
 
 
--je pense que le premier exo que je vais faire moi meme pour les articles c'est observer les arguments du main
--faire une boucle sur les arguments pour passer
 -puis de print une string en dur pour montrer le rodata => du coup faire ft_write comme il faut a la fin (asm tutor https://asmtutor.com/#lesson4 et aussi https://asmtutor.com/#lesson5 pour montrer comment le sortir, peut etre j'aurais besoni de ca https://asmtutor.com/#lesson6 et de ca https://asmtutor.com/#lesson7)
 -puis de calculer la longeur (ft_strlen done)
 -les additions https://asmtutor.com/#lesson12 , les soustraction https://asmtutor.com/#lesson13, les multiplications https://asmtutor.com/#lesson14 et les division https://asmtutor.com/#lesson15 
