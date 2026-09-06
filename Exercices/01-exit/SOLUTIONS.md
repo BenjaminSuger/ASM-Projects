@@ -23,16 +23,16 @@ On va ecrire notre code dans la section .text et lui indique ou commence notre p
 
 L'autre chose a connaitre c'est les registres pour les arguments (vous pouvez allez lire 'Computer Architecture' dans le dir posts de ce repo)
 
-|                    | Appel de fonction (ABI System V) |
+|                    | Syscall (Linux x86-64)           |
 |--------------------|----------------------------------|
-| Sélecteur          | l'adresse (`call func`)          |
+| Sélecteur          | le numéro dans rax               |
 | 1er argument       | rdi                              |
 | 2e / 3e            | rsi / rdx                        |
-| 4e                 | rcx                              |
+| 4e                 | r10                              |
 | 5e / 6e            | r8 / r9                          |
-| Déclenchement      | `call`                           |
+| Déclenchement      | `syscall`                        |
 | Retour             | rax                              |
-| Écrase en plus     | —                                |
+| Écrase en plus     | rcx, r11                         |
                                                                                                
 ce qui va nous donne le resultat suivant ; 
 
@@ -50,7 +50,7 @@ Maintenant il faut pouvoir compiler comme il faut ;
 
 ```
 nasm -f elf64 exit.s
-ld exit.s -o exit
+ld exit.o -o exit
 ```
 
 on peut alors tester si tout fonctionne bien et faire appel a strace pour voir le exit()
@@ -60,7 +60,7 @@ on peut alors tester si tout fonctionne bien et faire appel a strace pour voir l
 il y a 2 syscall different ; exit() et exit_group()
 exit ne termine que le thread appelant alors que exit_group termine les threads du processus. 
 
-Depuis au moins linux 2.7 => exit() utilise exit_group()
+exit_group() existe depuis Linux 2.5.35, et depuis glibc 2.3 => exit() utilise exit_group()
 
 Dans la pluspart des cours en ligne sur l'ASM de nos jours on continue d'utiliser le syscall de exit (60) au lieu du 231 pour exit_group() c'est sans importance du moment ou on a pas a gerer des threads.
 
