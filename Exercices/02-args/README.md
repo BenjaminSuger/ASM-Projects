@@ -24,15 +24,22 @@ Ou est argc ?
 Ou est argv ?
 est ce que si on ecrit nous meme notre code en assembly on les retrouve au meme endroit ?
 
-### ex01 - faire une comparaison
+### ex01 - Suite logique notre propre stack a observer
+
+On peut reprendre l'exercice 01 du exit, creer un petit programme qui pour le moment ne fait rien d'autres que quitter pur ensuite observer nous meme notre propre stack.
+
+C'est la suite logique de l'exercice precedent et de sa derniere question. C'est juste sa mise en pratique 
+
+### ex02 - faire une comparaison
 
 en gros faire un if et jump la ou il faut
+on pourrait faire un programme qui regarde juste le nombre d'argument et qui compare
 
 
-### ex02 - faire une boucle
+### ex03 - faire une boucle
 
 qui est finalement la meme chose mais pour bien le montrer
 
-### ex03 - faire une loop sur les arguments du main 
+### ex04 - faire une loop sur les arguments du main 
 
 on print pas encore mais on fait juste un passage dessus
