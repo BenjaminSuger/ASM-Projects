@@ -118,3 +118,69 @@ x/5s {char*} ($rsp+8)
 ```
 
 si on continue on va continuer sur envp 
+
+## ex02 - if
+
+Il y a plusieurs maniere d'ecrire tout ca et on va en explorer plusieurs;
+
+```asm
+section .text
+	global _start
+
+_start:
+	cmp qword [rsp], 3
+	je .right
+	mov rdi, 1	
+	jmp .end
+.right:
+	mov rdi, 42
+.end:
+	mov rax, 60
+	syscall
+```
+
+On commence par une comparaison. On precise la taille car nasm n'accepte pas sans ! Pourquoi ? parce qu'on dereference ici et qu'on va comparer a une constante, et du coup il ne sait pas quel taille il doit comparer, combien de bits / bytes ? On verra une autre maniere de faire apres
+
+Ensuite on je => jump if equal => vers ce qu'on appel un label.
+Ce label est un endroit precis ou on doit aller.
+
+a noter le jmp sur .end, pourquoi il est la ? 
+s'il n'est pas present alors ca va cree une situation ou on va executer quoi qu'il arrive le .right car on execute l'asm ligne par ligne quoi qu'il arrive (si on ne jump pas)
+
+```asm
+section .text
+	global _start
+
+_start:
+	mov rbx, [rsp]
+	cmp rbx, 3
+	je .right
+	mov rdi, 1	
+	jmp .end
+.right:
+	mov rdi, 42
+.end:
+	mov rax, 60
+	syscall
+```
+
+Ici la difference majeur a faire c'est que je prend la valeur que rsp pointe => pour la mettre dans un registre. Ce registre je vais le comparer a une constante. Ici je ne dereference pas quand je compare rbx a la constantem c'est pas un pointeur donc pas besoin de preciser la taille de la comparaison. Parce qu'on le fait sur le taille du registre dans ce cas.
+
+```asm
+section .text
+	global _start
+
+_start:
+	mov rbx, [rsp]
+	mov rdi, 42 
+	cmp rbx, 3
+	je .end
+	mov rdi, 1
+.end:
+	mov rax, 60
+	syscall
+```
+
+cette version est plus optimise et une chose que le compilateur peut produire. La grosse difference c'est qu'on met rdi a la bonne valeur comme il faut, ca nous evite de faire un saut qui arrivait quoi qu'il arrive => moins d'instruction et moins d'octet 
+
+Il existe encore plus optimise avec l'instruction cmov potentiellement (qu'on ne verra pas ici)

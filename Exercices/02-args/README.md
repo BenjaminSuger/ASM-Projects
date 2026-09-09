@@ -30,11 +30,19 @@ On peut reprendre l'exercice 01 du exit, creer un petit programme qui pour le mo
 
 C'est la suite logique de l'exercice precedent et de sa derniere question. C'est juste sa mise en pratique 
 
-### ex02 - faire une comparaison
+### ex02 - if
 
-en gros faire un if et jump la ou il faut
-on pourrait faire un programme qui regarde juste le nombre d'argument et qui compare
+Ici on va faire un programme en asm. L'objectif de check la valeur de notre argc;
+Si il est egale a 3 (donc ./a.out <value> <value>) on quitte avec la valeur 42. Sinon avec la valeur 1.
 
+```sh
+./exo
+echo $? #doit produire 1
+./exo les chats
+echo $? #doit produire 42
+```
+
+Pour ca il y a plusieurs themes ; cmp, jmp, je, les labels
 
 ### ex03 - faire une boucle
 
@@ -43,3 +51,4 @@ qui est finalement la meme chose mais pour bien le montrer
 ### ex04 - faire une loop sur les arguments du main 
 
 on print pas encore mais on fait juste un passage dessus
+on precise bien que c'est un building block pour la suite
