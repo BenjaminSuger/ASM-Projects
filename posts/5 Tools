@@ -1,0 +1,58 @@
+The tools needed to write assembly programming (and more)
+
+Today we choose our weapons !
+ 
+You can write assembly code in your favorite IDE or text editor: VS Code, Neovim, Nano, etc. It doesn't really matter, use whatever you are comfortable with. There is no need to switch editors specifically for assembly.
+
+For the rest of this series, I will assume you are using a Linux distribution (and WSL on Windows).
+
+Once you have written your assembly code, you need to transform it into an executable. As we saw in a previous article, the standard compilation steps are:
+
+Preprocessing ➔ Compilation ➔ Assembly ➔ Linking
+
+Since we are writing assembly directly, we jump straight into step 3: Assembly. We need to transform our code into object files and then link them into a final binary. These two steps usually require two distinct tools: an Assembler and a Linker.
+
+Here are the main toolchains available:
+
+AS + LD
+This is the default, minimal toolchain found on almost every Linux distribution.
+AS is the portable GNU Assembler.
+LD is the GNU Linker.
+The most important detail here is that as uses the AT&T syntax by default. If you want to avoid AT&T syntax and write in Intel syntax instead, you have two options:
+1.	Add this line at the very top of your assembly file: .intel_syntax noprefix
+2.	Pass flags to the command line: as -msyntax=intel -mnoprefix
+
+NASM + LD
+NASM stands for Netwide Assembler. It is the most popular assembler. It supports Intel syntax natively by default. You install it, and you’re ready to go.
+As you see we re use LD as a linker. In this setup. 
+
+FASM
+FASM stands for Flat Assembler. Unlike the previous options, FASM handles both assembling and linking in a single step. It is written in assembly itself, making it faster. It also uses Intel syntax by default. It is often liked because it can do more things if you want to design your own OS or very specific details than NASM.
+Before choosing a little details needs to be clarified.
+
+LD vs GCC
+LD serves as a linker, but can’t GCC (the compiler) link files too?
+It can, but it does not do the exact same thing under the hood. GCC goes a bit further, it automatically links the C standard library (libc).
+When using LD directly, we don't get the C library automatically. This puts us in a lower-level environment where we primarily interact directly with the Linux kernel using system calls.
+
+My Choice
+For this series, I have decided to use mainly NASM + ld.
+I chose this option because most online resources, tutorials, and exercises use NASM. I also have school projects at École 42 that require NASM specifically.
+Why did I say "mainly"? Because some platforms we will explore (like pwn.college) use AS + LD by default.
+We are studying x86_64 assembly. Fundamentally, regardless of the option you choose, the underlying hardware concepts remain identical. The syntax might differ slightly, but the logic and core architecture prevail.
+
+And the "And More..."?
+Our goal isn't just to write assembly, it's also to tackle cybersecurity challenges in reverse engineering and binary exploitation.
+To analyze and dissect binaries, we will use several essential tools along the way:
+-GDB (GNU Debugger): A debugger that allows you to inspect running memory, registers, and assembly code step-by-step. We will use it with an extension called GEF which improves its interface and capabilities.
+-Compiler Explorer (godbolt.org): An web tool to instantly see how different C/C++ compilers translate code into assembly instructions.
+-objdump: A CLI tool used to analyze binaries. We will mostly use it to disassemble machine code back into readable assembly.
+-readelf: A CLI tool to inspect the internal structures and headers of ELF binaries (ELF is the name of executable format on Linux).
+-Decompilers (Ghidra, Cutter, Radare2): Tools that take a compiled binary and attempt to translate the assembly back into pseudo-code. Ghidra (originally created by the NSA, yes you read it right, the spy agency) is the only option I used in the past, but I want to  explore other tools like Cutter/Rizin or Radare2.
+-Other CLI utilities: strings (extract text from binaries), nm (list symbols), hexdump / xxd (inspect raw bytes in hexadecimal).
+
+CONCLUSION
+Do you need to install all these tools right now? Not at all!
+Apart from installing NASM, you don't need anything yet. The goal of this article was simply to give you a roadmap of the ecosystem.
+Now that we have covered data representation, CPU architecture, and our toolchain, in the next post, we will write and run our very first code!
+If you enjoyed this post, feel free to follow along for the next episode.
