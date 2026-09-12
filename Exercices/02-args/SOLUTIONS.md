@@ -184,3 +184,41 @@ _start:
 cette version est plus optimise et une chose que le compilateur peut produire. La grosse difference c'est qu'on met rdi a la bonne valeur comme il faut, ca nous evite de faire un saut qui arrivait quoi qu'il arrive => moins d'instruction et moins d'octet 
 
 Il existe encore plus optimise avec l'instruction cmov potentiellement (qu'on ne verra pas ici)
+
+
+## ex03 - faire une loop sur les arguments du main 
+
+Le concept d'une boucle est d'utilise un jump qui nous renvoi au debut de notre label qui est notre boucle.
+
+Il y a plusieurs maniere d'ecrire et de reussir l'exercice, la solution que je vais presenter est surement une des plus courtes et compacte. 
+Mais il y a une astuce interessante a cette solution.
+
+Donc il n'y a pas une maniere de faire 
+
+```asm
+section .text
+	global _start
+
+_start:
+.loop:
+	inc rdi  ; on demarre a 1
+	cmp QWORD [rsp + 8 + rdi * 8], 0x00
+	jne .loop
+	mov rax, 60
+	syscall
+```
+
+On commence par "inc rdi", ca augmente de 1 a chaque fois qu'on passe dessus. Ca implique qu'on a toujours 1 comme resultat au minimum.
+Ce qui est ok dans notre cas, puisque quoi qu'il arrive il y a en argv le nom de programme au minimum.
+
+Il faut noter que c'est le noyau linux qui met a 0 rdi mais ce n'est pas assure par l'ABI system V (= standard UNIX x86), donc on joue un peu avec le feu.
+
+Ensuite on compare et c'est la ou il y a une astuce interresante. 
+
+Initialement je mettais dans un autre registre "+8" pour avance de pointeur en pointeur. Mais avec cette maniere d'ecrire ce n'est pas la peine.
+rsp => pointe vers argc
+rsp + 8 => argv[0]
+au debut rdi vaut 1 (et pas 0 puisqu'on a inc), donc ca fait rsp + 8 + 8 => rsp + 16 => on pointe tout de suite vers argv[1]
+on compare en regardant sur un QWORD, car c'est un pointeur, si ce n'est pas NULL et on jump seulement si ce n'est pas egale.
+Comme on a augmente rdi qui est notre premier argument pour notre syscall notre compteur est bien rdi, il est setup comme il faut.
+

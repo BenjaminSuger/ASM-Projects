@@ -65,6 +65,7 @@ To launch the project you'll need:
 
 For this project, AI was primarily used to correct the English in this document.
 It was also used to help me create tests for my functions.
+AI helps me also with practice exercises before doing libasm then I extend the practice side alone with various resources you can find here [LINK]
 
 ## Why did I take this subject? What did I learn?
 

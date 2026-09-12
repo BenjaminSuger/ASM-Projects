@@ -44,11 +44,15 @@ echo $? #doit produire 42
 
 Pour ca il y a plusieurs themes ; cmp, jmp, je, les labels
 
-### ex03 - faire une boucle
+### ex03 - faire une loop sur les arguments du main 
 
-qui est finalement la meme chose mais pour bien le montrer
+Maintenant qu'on a fait un if, on peut prendre cette logique pour faire une boucle.
 
-### ex04 - faire une loop sur les arguments du main 
+Objectif; faire une boucle qui parcourt les arguments du main jusqu'a ce qu'on trouve NULL. On peut return cette valeur trouve (meme si bien entendu on l'a avec argc mais c'est juste un moyen d'apprendre les boucles)
 
-on print pas encore mais on fait juste un passage dessus
-on precise bien que c'est un building block pour la suite
+```sh
+./exo
+echo $? #doit produire 1
+./exo les chats
+echo $? #doit produire 3
+```
