@@ -143,4 +143,3 @@ Mais du coup comment acceder specifiquement au partie qui n'ont pas de nom ?
 Pour ca il faut alors utiliser des operations logique de shifting avec des operations comme 
 shl => shift left 
 shr => shift right
-
