@@ -31,13 +31,22 @@ To launch the project you'll need:
 -NASM
 -LD
 
+## EXPLANATIONS
+
+This part will explain more about each functions and some concepts
+
 ## RESOURCES
 
 [PWN COLLEGE](https://pwn.college/): pwn.college is a program from Arizona State University. Everything is free! Labs with videos about cybersecurity. I absolutely love it!
+For preparing Libasm you should use the "Computing 101" path but also less known to people in the archives you'll find useful ressources in "Assembly crash course" (which is
+the first course done in asm by PWN College).
 
-[Algorithms for Modern Hardware](https://en.algorithmica.org/hpc/)
+[Algorithms for Modern Hardware](https://en.algorithmica.org/hpc/) : Not totally related to the subject. Goes deeper than needed for the project, but helped me learn how computers
+are working with modern hardware.
 
 [x86 video playlist from OliveStem](https://www.youtube.com/watch?v=yBO-EJoVDo0&list=PL2EF13wm-hWCoj6tUBGUmrkJmH1972dBB)
+
+[How does glibc make a system call in Linux?](https://youtu.be/NVXJZUa0kKo?si=XLUzi-4USffP0Btq)
 
 [CPU Land](https://cpu.land/)
 
@@ -45,7 +54,7 @@ To launch the project you'll need:
 
 [NASM Tutorial](https://cs.lmu.edu/~ray/notes/nasmtutorial/)
 
-[ASM Tutor](https://asmtutor.com/)
+[ASM Tutor](https://asmtutor.com/) : Great exercices but the solution is given too fast. Not sure what was the plan about that initialy. But helped me to create my own practice.
 
 [Learn x86-64 assembly by writing a GUI from scratch](https://gaultier.github.io/blog/x11_x64.html)
 
