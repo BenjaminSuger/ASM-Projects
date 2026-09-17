@@ -161,4 +161,26 @@ Les instructions sont lu ligne par ligne => apres le syscall ca continue de lire
 Autre point interessant, c'est si vous faites tourner ca dans GDB et que vous observer le registre rax, apres le syscall il a change de valeur. C'est le retour du syscall qui prend la valeur de la longueur de la chaine de msg.
 
 
+## ex02 - Longueur
 
+
+```asm
+section .text
+        global _start
+        global ft_strlen
+
+ft_strlen:
+        or rax, -1 ; plus lent qu'un mov rax, -1 il semblerait mais rigolo
+.loop:
+        inc rax
+        cmp byte [rdi + rax], 0
+        jne .loop
+        ret
+
+_start:
+        mov rdi, QWORD [rsp + 16] ; je charge le 1er argument
+        call ft_strlen
+        mov rdi, rax
+        mov rax, 60
+        syscall
+```

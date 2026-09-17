@@ -43,6 +43,7 @@ This part will explain more about each functions and some concepts
 -les registres
 -caller saved et callee saved registres
 -apres des petits points sur chaque fonctions comme il faut
+    genre strlen avec mon or (meme si je sais pas si je le garde faut que j'etudie un peu plus le probleme face a un mov rax, -1)
 
 ## RESOURCES
 
@@ -52,6 +53,10 @@ the first course done in asm by PWN College).
 
 [Algorithms for Modern Hardware](https://en.algorithmica.org/hpc/) : Not totally related to the subject. Goes deeper than needed for the project, but helped me learn how computers
 are working with modern hardware.
+
+[Tips for golfing in x86_64 machine code](https://codegolf.stackexchange.com/questions/132981/tips-for-golfing-in-x86-x64-machine-code) Where I learned about size instruction and tips for ft_strlen to put -1 at a minimum cost (or operator)
+
+[Set all bits in CPU register to 1 efficiently](https://stackoverflow.com/questions/45105164/set-all-bits-in-cpu-register-to-1-efficiently)
 
 [x86 video playlist from OliveStem](https://www.youtube.com/watch?v=yBO-EJoVDo0&list=PL2EF13wm-hWCoj6tUBGUmrkJmH1972dBB)
 
