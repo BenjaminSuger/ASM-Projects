@@ -34,6 +34,15 @@ To launch the project you'll need:
 ## EXPLANATIONS
 
 This part will explain more about each functions and some concepts
+-image registres en haut de la pyramide pour le CPU et peut etre image CPU un peu
+-x86_64 c'est quoi 
+-system V ABI
+-NASM et LD
+-Intel syntax vs AT&T
+-call convention
+-les registres
+-caller saved et callee saved registres
+-apres des petits points sur chaque fonctions comme il faut
 
 ## RESOURCES
 
@@ -49,6 +58,8 @@ are working with modern hardware.
 [How does glibc make a system call in Linux?](https://youtu.be/NVXJZUa0kKo?si=XLUzi-4USffP0Btq)
 
 [CPU Land](https://cpu.land/)
+
+[Calling Convention](https://en.wikipedia.org/wiki/Calling_convention)
 
 [Where the top of the stack is on x86](https://eli.thegreenplace.net/2011/02/04/where-the-top-of-the-stack-is-on-x86)
 
@@ -89,6 +100,7 @@ So here is a summary of everything I learned:
 -ISA (CISC vs RISC)
 -How the CPU works
 -Translation of code to CPU instructions
+-Compiler's work behind the scene and his optimization
 -Intel and AT&T syntax basics (but stick to Intel syntax as God intended)
 -Compiler output with different optimisation levels
 -NASM
