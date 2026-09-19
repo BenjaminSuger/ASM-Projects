@@ -163,7 +163,6 @@ Autre point interessant, c'est si vous faites tourner ca dans GDB et que vous ob
 
 ## ex02 - Longueur
 
-
 ```asm
 section .text
         global _start
@@ -184,3 +183,21 @@ _start:
         mov rax, 60
         syscall
 ```
+
+Encore une fois le reflexe pas simple a avoir sur la fonction ft_strlen c'est de faire une boucle avec jne et pas avoir 2 jump (dont un qui arrive quoi qu'il arrive).
+
+Du coup pour avoir moins d'instruction au tout debut on met a -1 avant d'increase (attention a bien le faire sur rax et pas eax et voir ce que ca implique).
+
+La premiere ligne vaut une explication car elle a plusieurs implications;
+
+Un ou logique permet de mettre a la valeur -1 comme on le souhaite.
+
+Elle presente un avantage, l'instruction represente moins d'opcodes, moins de bytes utlise pour l'instruction qu'un "mov rax, -1".
+
+Cependant ca ne veut pas forcement dire que c'est mieux et plus efficace. Quand un mov va simplement ecrire dans le registre peut importe la valeur presente. Le or logique, doit lui regarder a l'interieur de rax (ce qui est un probleme de dependance).
+
+On parle pas d'une grande optimisation ou d'une perte majeur mais ca compte et surtout c'est interessant de comprendre tout ca je pense.
+
+En parlant d'optimisation, il existe une partie du CPU dont on a jamais parle; le SIMD.
+
+Dans ce directory vous trouverez un minicours a ce sujet (genere par IA) qui parle de comment ecrire une ft_strlen avec SIMD, ce qui ne vas pas etre explore ici plus en detail par manque de temps. Cependant j'encourage fortement cette lecture pour comprendre l'architecture moderne du CPU et s'eloigner de certains cours qui reste sur des anciennes notions.
