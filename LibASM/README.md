@@ -34,6 +34,20 @@ To launch the project you'll need:
 ## EXPLANATIONS
 
 This part will explain more about each functions and some concepts
+
+### 'It is forbidden to use the compilation flag: -no-pie'
+
+*This sentence comes from the subject*
+
+While the idea of doing it is kind of crazy! We need to understand what we are talking about.
+PIE stands for Position-Independent Executable, it means that each time we launch our ELF it is launched from a random place in
+virtual memory and does not impact the program. It's not PIE doing it, it's the ASLR from the kernel doing it while PIE makes it possible. So we don't have hard-coded memory addresses inside our code and 
+we avoid easy ROP (Return-Oriented Programming) exploits (it's when you know where you have to offset the code to take control).
+
+So this mention in the subject is to make sure we do it the right way.
+
+### to do later
+
 -image registres en haut de la pyramide pour le CPU et peut etre image CPU un peu
 -x86_64 c'est quoi 
 -system V ABI
@@ -104,6 +118,7 @@ So here is a summary of everything I learned:
 -Computer architecture
 -ISA (CISC vs RISC)
 -How the CPU works
+-SIMD
 -Translation of code to CPU instructions
 -Compiler's work behind the scene and his optimization
 -Intel and AT&T syntax basics (but stick to Intel syntax as God intended)
@@ -112,3 +127,27 @@ So here is a summary of everything I learned:
 -Foundations for reverse engineering CTF challenges
 -Better use of GDB to inspect ELF files without debug flags
 -Better use of objdump
+
+## SIMD
+
+About the SIMD, while I was in the idea to use it for at least ft_strlen() and few others functions. I have decided to not write it and let it scalar way.
+The main reason is the time constraint I had, but I explored SSE2 and AVX concepts while doing my research about Assembly.
+
+## FUN FACTS
+
+While exploring godbolt and different compiler stuff, I discovered a way of "cheating" on some functions. 
+It's not really a cheat but a very helpful way of comparing your asm to the compiler's work....
+
+While using godbolt I did this ; [godbolt output for a ft_strlen](https://godbolt.org/z/oYT4f6hWv)
+The GCC compiler is using the real strlen it knows => because GCC knows the idiom of strlen (looking for '\0'). The strlen in libc is using SIMD which makes the substitution interesting.
+
+So in order to not have any optimization like that, you need to add some flags; [godbolt output for a ft_strlen with -ffreestanding](https://godbolt.org/z/czejWqrsa)
+What do we see ? a very clean version of ft_strlen, very close to mine (but mine is better and yes it is the ego talking right here)
+
+So maybe.....you can pass your C code directly to godbolt with this flag and everything will work out; [godbolt on ft_strcmp with --ffreestanding](https://godbolt.org/z/344G7jcv3)
+*You have to know that 42 students have already done most of those functions in C at the beginning of their cursus*
+
+It works !
+Is it good ? No but it's not THAT bad
+Is it useful ? A little bit for small functions, after that you need to do it by yourself
+Is it funny ? YES !
