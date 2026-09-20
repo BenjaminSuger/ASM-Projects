@@ -26,7 +26,7 @@ We should check errors during syscalls and handle them properly when needed.
 ## REQUIREMENTS
 
 To launch the project you'll need:
--A Linux distribution
+-A Linux distribution (x86_64)
 -Make
 -NASM
 -LD
@@ -105,6 +105,7 @@ are working with modern hardware.
 For this project, AI was primarily used to correct the English in this document.
 It was also used to help me create tests for my functions.
 AI helps me also with practice exercises before doing libasm then I extend the practice side alone with various resources you can find here [LINK]
+Helps me to generate a cleaner version of my Makefile for debug option
 
 ## Why did I take this subject? What did I learn?
 
