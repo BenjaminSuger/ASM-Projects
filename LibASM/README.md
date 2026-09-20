@@ -33,7 +33,8 @@ To launch the project you'll need:
 
 ## EXPLANATIONS
 
-This part will explain more about each functions and some concepts
+This part will explain more about each functions and some concepts.
+You'll find more details in my repo on github with the section "Posts"
 
 ### 'It is forbidden to use the compilation flag: -no-pie'
 
@@ -46,16 +47,38 @@ we avoid easy ROP (Return-Oriented Programming) exploits (it's when you know whe
 
 So this mention in the subject is to make sure we do it the right way.
 
+### What is x86_64
+
+Computers come with different CPU, the CPU can have different architecture. x86 is one of them!
+The "_64" is here to precise it's 64 bits.
+
+This whole project for this architecture.
+
+### What is the system V ABI ?
+
+System V ABI is a standard specification that defines low-level binary compatibility for compiled application programs running on Unix and Unix-like operating systems.
+
+It defines also what we call the "Calling Conventions". Which is important for our project for a specific detail ; 
+
+-registers callee-saved ; the one we need to restore if modify during our function (rbp, rsp, rbx, r12-r15)
+-registers caller-saved ; the called function can modify them without any issue (all other registers)
+
+The arguments of functions are (in orders) put in those registers ; rdi, rsi, rdx, rcx, r8, r9.
+The return value of functions or syscalls is in rax.
+To use a syscall, you use rax to put the syscall number.
+
+### Intel and AT&T syntax
+
+We write with Intel syntax as God intend to. That's it !
+
+
+
 ### to do later
 
 -image registres en haut de la pyramide pour le CPU et peut etre image CPU un peu
--x86_64 c'est quoi 
--system V ABI
 -NASM et LD
--Intel syntax vs AT&T
--call convention
 -les registres
--caller saved et callee saved registres
+-program section
 -apres des petits points sur chaque fonctions comme il faut
     genre strlen avec mon or (meme si je sais pas si je le garde faut que j'etudie un peu plus le probleme face a un mov rax, -1)
 
