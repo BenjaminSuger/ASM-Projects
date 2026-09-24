@@ -20,7 +20,7 @@ We are building a library (libasm.a) written in assembly with the following func
 ◦ ft_list_sort 
 ◦ ft_list_remove_if
 
-We are allowed to call the extern ___error or errno_location.
+We are allowed to call the extern errno_location.
 We should check errors during syscalls and handle them properly when needed.
 
 ## REQUIREMENTS
@@ -52,7 +52,7 @@ So this mention in the subject is to make sure we do it the right way.
 Computers come with different CPU, the CPU can have different architecture. x86 is one of them!
 The "_64" is here to precise it's 64 bits.
 
-This whole project for this architecture.
+This whole project is built for this architecture.
 
 ### What is the system V ABI ?
 
@@ -67,11 +67,29 @@ The arguments of functions are (in orders) put in those registers ; rdi, rsi, rd
 The return value of functions or syscalls is in rax.
 To use a syscall, you use rax to put the syscall number.
 
+### Man
+
+In the man 2 syscall you can find valuable information if you forget the order of arguments and return values.
+Also I found interesting information in man 2 intro about the syscalls and wrapper libc.
+
 ### Intel and AT&T syntax
 
 We write with Intel syntax as God intend to. That's it !
 
+### leaf and non leaf function
 
+Leaf function => does not call any other function
+Non leaf function => call another function
+
+With a Non leaf function you have to guarantee rsp align on 16 for each call.
+
+### ft_write
+
+First function where you encounter errno. 
+You do your syscall => the value inside rax can be negative if there is an error (a value between -1 and -4095).
+This value will help us for __errno_location => we need to call this extern function with wrt (for NASM, stands for With Respect To) and ..plt (Procedure Linkage Table => Global Offset Table).
+The errno_location function gives us an address in rax where we can put the value found previously. 
+In my solution I decided to push rax, to align value (ABI System V rules of alignment 16 bytes) and not put it into a specific register 9and also needed to save the value).
 
 ### to do later
 
@@ -151,6 +169,7 @@ So here is a summary of everything I learned:
 -Foundations for reverse engineering CTF challenges
 -Better use of GDB to inspect ELF files without debug flags
 -Better use of objdump
+-PLT / GOT with glibc
 
 ## SIMD
 

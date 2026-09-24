@@ -16,7 +16,8 @@ DEBUG_FLAGS	= -g -F dwarf
 SRCS_DIR	= srcs
 OBJS_DIR	= objs
 
-SRCS		= $(SRCS_DIR)/ft_strlen.s
+SRCS		= $(SRCS_DIR)/ft_strlen.s \
+		  $(SRCS_DIR)/ft_write.s
 
 BONUS_SRCS	=
 
