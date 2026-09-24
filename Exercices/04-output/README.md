@@ -36,12 +36,18 @@ echo $? # doit print 0
 
 On va donc produire ft_strlen demander par la libasm
 
-## ex03 - ft_putstr
-
-On a pas mal de chose qu'on peut assembler ensemble 
-
-## ex04 - ft_write
+## ex03 - ft_write
 
 Ici objectif de bien suivre la consigne de la libasm en produisant ft_write qui suit man 2 write.
 A premiere vue, aucun interet car on ne met pas ft_strlen dedans et on a fait plus complexe avant. 
 Mais la c'est surtout les valeurs de retour qui vont nous interesser et la gestion des erreurs pas vu encore.
+
+## ex04 - ft_putstr
+
+On a pas mal de chose qu'on peut assembler ensemble. 
+
+On peut produire un ft_pustr() comme a la piscine en C de 42; 
+depuis notre _start on appelle juste ft_pustr avec la valeur mise en .rodata
+Le ft_putstr call ft_strlen puis il call ft_write avec les bonnes valeurs.
+
+Pour ce qui est d'un passage de pointeur NULL a ft_pustr vous pouvez gerer comme vous voulez.

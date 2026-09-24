@@ -201,3 +201,176 @@ On parle pas d'une grande optimisation ou d'une perte majeur mais ca compte et s
 En parlant d'optimisation, il existe une partie du CPU dont on a jamais parle; le SIMD.
 
 Dans ce directory vous trouverez un minicours a ce sujet (genere par IA) qui parle de comment ecrire une ft_strlen avec SIMD, ce qui ne vas pas etre explore ici plus en detail par manque de temps. Cependant j'encourage fortement cette lecture pour comprendre l'architecture moderne du CPU et s'eloigner de certains cours qui reste sur des anciennes notions.
+
+## ex03 - ft_write
+
+On va realiser maintenant le ft_write qui nous ai demande par libASM.
+On va faire un programme avec la string deja donne dans .rodata.
+
+En soit le _start ne fait qu'une chose => mettre en place les arguments qu'on va passer a ft_write.
+
+Mais du coup on peut se demander pourquoi faire une fonction a part pour ca ? 
+
+L'interet est pas d'uniquement faire un syscall. On doit return la bonne chose avec ret (donc la bonne valeur de rax) mais aussi bien mettre en place le errno ! 
+
+Pour ca on va devoir l'appeller aussi dans notre fichier et c'est une fonction externe. Donc on va devoir lui indiquer 'extern __errno_location' car c'est une fonction qu'on call (c'est celle pour linux et on nous autorise la chose).
+
+Fun fact, la libc ne fait pas ca ! si vous disass un write, vous ne verrez pas d'appel avec call a __errno_location parce que c'est un offset qu'il connait et c'est a partir de la ou il fait des manipulation pour mettre en place le bon.
+
+PROBLEME ; __errno_location est donc externe, ce qui veut dire qu'on ne l'a pas, il faut indiquer au linker ou trouver ca !
+Pour ca on va devoir faire en sorte de l'indiquer et au lieu de faire simplement ld on fait
+
+```sh
+ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 exo.o -lc -o exo
+```
+
+maintenant la solution 
+
+```asm
+section .rodata
+	msg db "Les chats sont mignons", 10, 0
+	msgLen equ $ - msg - 1
+
+section .text
+	global _start
+	global ft_write
+	extern __errno_location
+
+ft_write:
+	mov rax, 1 
+	syscall
+	cmp rax, 0
+	jge .fin
+	neg rax
+	push rax
+	call  __errno_location wrt ..plt
+	pop rdi
+	mov [rax], edi
+	mov rax, -1
+.fin:
+	ret
+
+_start:
+	mov rdi, 1
+	mov rsi, msg
+	mov rdx, msgLen
+	call ft_write
+	mov rdi, rax
+	mov rax, 60
+	syscall
+```
+
+Ici un premier choix a bien marque c'est que je quitte _start avec la valeur de write.
+
+Ensuite dans _start on prepare tout ce qu'il faut pour faire le travail et on call ft_write.
+
+ft_write;
+*Il commence par prepare le syscall avec rax.
+
+*La valeur de retour d'un probleme c'est entre -1 et -4095 donc on va alors juste regarder si c'est inferieur ou superieur a 0. 
+
+*Dans le cas ou il n'y a pas de probleme, on peut sauter a la fin. A l'inverse on va commencer a traiter la suite.
+
+*on a recu une valeur negative => il faut donc la changer pour avoir un positif qui va servir la fonction __errno_location a trouver la bonne chose.
+
+*push rax, sert a plusieurs choses ! 
+Premierement on sauvegarde la valeur de rax qui va changer par le call (idee callee-saved / caller-saved registers).
+
+Deuxiemement il sert a maintenir un alignement sur un multiple de 16 octet.
+Notre fonction vient d'un call de _start donc on commence dans le stack par un decalage qui va etre rendu par notre ret de la fonction.
+Mais nous on doit faire aussi un call dans notre fonction, comme je sais que je suis ne suis pas encore aligne ce push permet de le mettre en place.
+
+```
+┌────────────────────────────────────────┬──────────────────────────────┐
+│                 Moment                 │             rsp              │
+├────────────────────────────────────────┼──────────────────────────────┤
+│ entrée de _start, garanti par le noyau │ 16n                          │
+├────────────────────────────────────────┼──────────────────────────────┤
+│ après le call ft_write                 │ 16n - 8                      │
+├────────────────────────────────────────┼──────────────────────────────┤
+│ après ton push rax                     │ 16n - 16, donc aligné        │
+├────────────────────────────────────────┼──────────────────────────────┤
+│ au call __errno_location               │ aligné, contrat respecté     │
+├────────────────────────────────────────┼──────────────────────────────┤
+│ après pop rdi                          │ 16n - 8                      │
+├────────────────────────────────────────┼──────────────────────────────┤
+│ après ret                              │ 16n, _start retrouve sa pile │
+└────────────────────────────────────────┴──────────────────────────────┘
+```
+
+*le call errno ;
+On voit que je dois preciser wrt qui veut dire "With Respect To" pour NASM.
+
+On met ..plt pour lui dire d'aller a la Procedure Linkage Table => c'est une jump table qui permet d'atteindre la GOT (Global Offset Table) pour obtenir dans la lib dynamique la bonne fonction.
+
+*on recupere la valeur de rax qu'on a save mais elle est dans rdi. Pourquoi ? Parce que la ligne suivante on utilise cette valeur pour la mettre a l'adresse que point rax qui setup l'errno comme il faut.
+
+*on peut ensuite return -1 en modifiant rax
+
+## ex04 - ft_putstr
+
+Maintenant on peut tout mettre en lien ! 
+
+```asm
+section .rodata
+	msg db "Les chats sont mignons", 10, 0
+	msgLen equ $ - msg - 1
+
+section .text
+	global _start
+	global ft_write
+	global ft_strlen
+	global ft_putstr
+	extern __errno_location
+
+ft_strlen:
+        mov rax, -1
+.loop:
+        inc rax
+        cmp byte [rdi + rax], 0
+        jne .loop
+        ret
+
+ft_write:
+	mov rax, 1 
+	syscall
+	cmp rax, 0
+	jge .fin
+	neg rax
+	push rax
+	call  __errno_location wrt ..plt
+	pop rdi
+	mov [rax], edi
+	mov rax, -1
+.fin:
+	ret
+
+ft_putstr:
+	push rbx
+	mov rbx, rdi
+	call ft_strlen
+	mov rsi, rbx
+	mov rdi, 1
+	mov rdx, rax
+	call ft_write
+	pop rbx
+	ret
+
+_start:
+	mov rdi, msg
+	call ft_putstr
+	mov rdi, rax
+	mov rax, 60
+	syscall
+```
+
+Ici on fait un assemblage de tout ce qu'on a fait precedement.
+Le point important c'est surtout l'alignement sur ft_putstr, comment il est fait et pourquoi ?
+
+On doit faire un seul push pour bien remettre en place. On entre en 16n+8 mais avec un push on ramene a 16n. 
+
+On va utiliser rbx, car c'est un registre qu'on doit rendre intacte
+
+Apres notre call de ft_strlen, meme si on sait qu'on a pas de changement de rdi. On part du principe que c'est un registre dont on a perdu la main quoi qu'il arrive (caller-saved)
+
+et on ne doit pop qu'une fois que tout est finit. Pour garder un bon alignement.
