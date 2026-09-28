@@ -8,3 +8,5 @@ ft_strlen:
 	cmp byte [rdi + rax], 0
 	jne .loop
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

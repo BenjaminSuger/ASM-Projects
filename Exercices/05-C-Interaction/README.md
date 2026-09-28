@@ -13,4 +13,10 @@ int main(void) {
 }
 ```
 
+## ex01 faire un so
 
+
+## ex02 faire un .a
+
+
+## (hors sujet) ex03 faire un inlining

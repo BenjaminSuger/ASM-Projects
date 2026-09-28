@@ -15,3 +15,5 @@ ft_write:
 	mov rax, -1
 .fin:
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

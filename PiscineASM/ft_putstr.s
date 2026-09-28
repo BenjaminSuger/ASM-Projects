@@ -36,3 +36,5 @@ ft_putstr:
 	call ft_write
 	pop rbx
 	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits
