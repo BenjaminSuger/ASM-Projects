@@ -38,32 +38,21 @@ Write and strlen
 
 #### 05 C interaction
 Writing Assembly and using it with C program in various ways
-comment faire son code en C et ajouter son code de asm qui vient de l'object file (utiliser le strlen ou le write) => voir faire aussi un putstr
-faudrait que je montre juste en compilation /  en librairie statique et en librairie dynamique
 
-(en cours sur le 04)
--puis de print une string en dur pour montrer le rodata => du coup faire ft_write comme il faut a la fin (asm tutor https://asmtutor.com/#lesson4 et aussi https://asmtutor.com/#lesson5 pour montrer comment le sortir, peut etre j'aurais besoni de ca https://asmtutor.com/#lesson6 et de ca https://asmtutor.com/#lesson7)
--puis de calculer la longeur (ft_strlen done)
+#### 06 small exos
+Small exercices ; strcmp, strcpy, swap, read, strdup, check_base, fizz_buzz
 
--ca serait bien de montrer un overflow je pense en asm parce que ma question de base sur les registres vs les variable (observable avec un code en c d'abord)
+#### 07 linked list
+Everything about linked list
+function from libasm; ft_list_push_front, ft_list_size, ft_list_sort, ft_list_remove_if
+ft_for_each avec le pointer de fonction
 
-
--peut etre un exo qui fait en sorte que ca retombe sur un truc utile de atoi ou on verifie qu'il y a pas de doublon ou autres 
--fizz buzz https://asmtutor.com/#lesson18 mais je crois je vais devoir faire un putnbr
--un truc sur pointeur comme 42 piscine => du type ft_ft pour voir
--faire un petit swap
--puis de comparer (ft_strcmp done)
--faire l'exo piscine ou on compare les arguments du main pour les mettres dans l'ordre (ft_sort_param C06 de la piscine)
-
--puis de faire ft_strcpy 
--malloc avec ft_strdup 
--ft_atoi_base
--le ft_read (https://asmtutor.com/#lesson9 et/ou https://asmtutor.com/#lesson25)
-
--les listes chaine
--ft_for_each avec le pointer de fonction
+#### 08 THE END
 
 -namespace https://asmtutor.com/#lesson17
+-ca serait bien de montrer un overflow je pense en asm parce que ma question de base sur les registres vs les variable (observable avec un code en c d'abord)
+-un truc sur pointeur comme 42 piscine => du type ft_ft pour voir mais surement plus pour ce qui est piscine
+
 
 ## Ressources
 
