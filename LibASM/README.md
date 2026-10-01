@@ -83,13 +83,37 @@ Non leaf function => call another function
 
 With a Non leaf function you have to guarantee rsp align on 16 for each call.
 
+### section .note.GNU-stack noalloc noexec nowrite progbits
+
+You'll find this indication at each of the function. It's to avoid warnings during the use with C code.
+Without this indication the linker is assuming that it needs executable stack (an executable stack can be used for nested functions in C for example).
+
+### ft_strlen
+
+Where we met our first loop and it's where you learn tips to start the counter with -1. Which allow you to write a better loop.
+There is also another tips interesting to set the register to -1 with the or instruction. While or is an 4 bytes and mov 7 bytes size, or is dependent from the previous value inside the register.
+
 ### ft_write
 
 First function where you encounter errno. 
 You do your syscall => the value inside rax can be negative if there is an error (a value between -1 and -4095).
 This value will help us for __errno_location => we need to call this extern function with wrt (for NASM, stands for With Respect To) and ..plt (Procedure Linkage Table => Global Offset Table).
 The errno_location function gives us an address in rax where we can put the value found previously. 
-In my solution I decided to push rax, to align value (ABI System V rules of alignment 16 bytes) and not put it into a specific register 9and also needed to save the value).
+In my solution I decided to push rax, to align value (ABI System V rules of alignment 16 bytes) and not put it into a specific register and also needed to save the value).
+
+### ft_strcmp
+
+Interesting function where you see 2 new instructions ; 
+*test*
+=> a usual way to test if a register is 0 or not (using it on himself) its an and operation which throw its result.
+=> xor write in a register the result while test only change the flags
+=> test size is smaller than cmp (2 vs 3 bytes)
+
+*movzx*
+=> used to mov + zeroed the part of the registers 
+=> done here because we have to compare unsigned char (so we don't use movsx)
+=> We do it on eax like this the other part is zeroed also.
+
 
 ### to do later
 
@@ -109,7 +133,7 @@ the first course done in asm by PWN College).
 [Algorithms for Modern Hardware](https://en.algorithmica.org/hpc/) : Not totally related to the subject. Goes deeper than needed for the project, but helped me learn how computers
 are working with modern hardware.
 
-[Tips for golfing in x86_64 machine code](https://codegolf.stackexchange.com/questions/132981/tips-for-golfing-in-x86-x64-machine-code) Where I learned about size instruction and tips for ft_strlen to put -1 at a minimum cost (or operator)
+[Tips for golfing in x86_64 machine code](https://codegolf.stackexchange.com/questions/132981/tips-for-golfing-in-x86-x64-machine-code) Where I learned about size instruction and tips for ft_strlen to put -1 at a minimum cost (or operator but not used in the strlen I did for other consideration)
 
 [Set all bits in CPU register to 1 efficiently](https://stackoverflow.com/questions/45105164/set-all-bits-in-cpu-register-to-1-efficiently)
 

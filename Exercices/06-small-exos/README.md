@@ -1,7 +1,4 @@
 # 06 small exos
-Small exercices ; strcmp, strcpy, swap, read, strdup, check_base, fizz_buzz
-fizz buzz https://asmtutor.com/#lesson18 mais je crois je vais devoir faire un putnbr
-
 
 ## ex00 - strcmp
 On va build strcmp;
@@ -28,3 +25,15 @@ Petits indices;
 il existe une instruction pour mov et bien mettre tout a 0 direct ce qui est pas necessaire.
 
 il existe une instruction test
+
+## ex01 - strcpy
+
+## ex02 - strdup
+
+## ex03 - read
+
+## ex04 - check_base
+
+## ex05 - swap
+
+## ex06 - fizz_buzz

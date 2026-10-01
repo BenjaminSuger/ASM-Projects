@@ -17,7 +17,8 @@ SRCS_DIR	= srcs
 OBJS_DIR	= objs
 
 SRCS		= $(SRCS_DIR)/ft_strlen.s \
-		  $(SRCS_DIR)/ft_write.s
+		  $(SRCS_DIR)/ft_write.s \
+		  $(SRCS_DIR)/ft_strcmp.s
 
 BONUS_SRCS	=
 
