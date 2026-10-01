@@ -51,3 +51,45 @@ Test est une instruction souvent utilise d'apres mes lectures pour tester si un 
 Attention a un detail => inc rdx comme beaucoup de calcul modifie les flags.
 
 Il existe aussi une autre technique sans faire de SIMD qui s'appelle le SWAR qui essaie effectivement de faire un masque mais sur un registre. Un peu plus complexe et pas sur que ca vaille le coup ici.
+
+## ex01 - strcpy
+
+```asm
+BUF_SIZE equ 64
+
+section .bss
+	dest resb BUF_SIZE
+
+section .data
+	src db "hello",0
+
+section .text
+	global _start
+	global ft_strcpy
+
+ft_strcpy:
+	mov rcx, -1
+.loop:
+	inc rcx
+	movzx eax, byte [rsi + rcx]
+	mov [rdi + rcx], al
+	test al, al	
+	jne .loop
+	mov rax, rdi
+	ret
+
+_start:
+	lea rdi, [rel dest]
+	lea rsi, [rel src]
+	call ft_strcpy
+	mov rdi, 0
+	mov rax, 60 
+	syscall
+```
+
+Donc ici j'ai decide de faire l'approche de BSS pour envoyer a la fonction
+la taille est superieur a ce que j'ai besoin
+
+on reutilise test ici pour savoir si c'est bien 0.
+On doit faire attention a la valeur de retour qui est la destination.
+sinon c'est un peu la meme technique fondamentalement que l'exo precedent.
