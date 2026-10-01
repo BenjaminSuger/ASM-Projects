@@ -18,6 +18,13 @@ char *str2 = "chatons";
 printf("%d\n", strcmp(str, str2)); //produit -111 par (\0 - 'o')
 ```
 
-S'il manque un argument c'est un segmentation fault.
+Si un argument est a NULL => segfault
 
 On va jusque la longeur de s1 pour les check ou alors des qu'il y a une difference entre s1 et s2.
+
+Attention le -111 dont je parle est pas assure par le standard c'est juste le cote negatif / positif. On peut si on le souhaite renvoyer -1 uniquement (mais honnetement c'est moins de boulot de renvoyer -111).
+
+Petits indices; 
+il existe une instruction pour mov et bien mettre tout a 0 direct ce qui est pas necessaire.
+
+il existe une instruction test
