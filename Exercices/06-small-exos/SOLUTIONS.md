@@ -93,3 +93,61 @@ la taille est superieur a ce que j'ai besoin
 on reutilise test ici pour savoir si c'est bien 0.
 On doit faire attention a la valeur de retour qui est la destination.
 sinon c'est un peu la meme technique fondamentalement que l'exo precedent.
+
+
+## ex02 - strdup
+
+```asm
+section .rodata
+	str: db "chatons", 0
+
+section .text
+	global ft_strdup
+	global main
+	extern ft_strlen
+	extern ft_strcpy
+	extern ft_write
+	extern malloc
+	extern free
+
+ft_strdup:
+	push rdi
+	call ft_strlen
+	inc rax
+	mov rdi, rax
+	call malloc wrt ..plt
+	cmp rax, 0
+	je .end
+	mov rdi, rax
+	mov rsi, QWORD [rsp]
+	call ft_strcpy 
+.end:
+	pop rdi
+	ret
+
+main:
+	lea rdi, [rel str] ; charge la string
+	push rdi
+	call ft_strdup
+	cmp rax, 0
+	je .end_bad
+	mov QWORD [rsp], rax
+	mov rdi, rax
+	call ft_strlen 
+	mov rsi, QWORD [rsp]
+	mov rdi, 1
+	mov rdx, rax
+	call ft_write
+	mov rdi, QWORD [rsp]
+	call free wrt ..plt
+	pop rdi
+	mov rax, 0
+	ret
+
+.end_bad:
+	pop rdi
+	mov rax, 1
+	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits
+```

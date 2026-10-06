@@ -75,8 +75,54 @@ pop rbp
 
 peut importe la maniere que vous souhaiter utilise ca fonctionnement pour faire le strcpy.
 
-
 ## ex02 - strdup
+
+Il etait important de faire strcpy avant strdup car on peut ici faire de l'assemblage (sans mauvais jeu de mot) => c'est a dire qu'on peut utiliser des fonctions qu'on a fait auparavant ; strcpy et strlen.
+
+Pour les utiliser on va devoir
+
+```asm
+section .text
+    global ft_strdup
+    extern ft_strlen
+    extern ft_strcpy
+    extern malloc
+```
+
+A la fin quand on va vouloir le compiler on va pouvoir utiliser nos autres fichier (en .o) pour bien compiler comme il faut ou alors un libasm.a (ce que je vais lui donner dans mon cas).
+
+On va arriver aussi sur quelques soucis ! Ici on doit utiliser malloc. On nous precise bien que l'output de strdup est bien d'origine du malloc. 
+
+```asm
+    extern malloc
+```
+
+Donc la jusqu'a present on avait pu faire notre propre _start => sauf que la on va devoir utiliser le dynamic linker de libc => donc ca veut dire qu'il va y avoir un _start deja existant qui initialise la libc.
+
+Comment faire ? 
+
+2 solutions ; 
+* on compile un main.c 
+* on fait en asm pas un _start mais un main => solution plus simple et qui nous fait pratiquer un peu, meme si c'est simple, un peu plus d'asm
+
+(en partant du principe qu'on a deja un libasm.a)
+
+```sh
+nasm -f elf64 -g -F dwarf main.s -o main.o
+gcc main.o libasm.a -o exe
+```
+
+GCC va se charger de faire la liaison avec la libc de lui meme.
+il faudrat quand meme ajoute ca a la fin de notre main pour faire partir un message de warning (je crois que j'en ai deja parle dans une autre section avant => sinon allez voir mon readme de libasm)
+
+```asm
+section .note.GNU-stack noalloc noexec nowrite progbits
+```
+
+Ici dans cette fonction, non leaf, il faut faire attention a l'alignement a 16. Puisque les call qu'on va faire, nous meme etant deja decale de 8 provenant d'un call (decalage du a l'adresse de retour de la fonction).
+
+franchement vu la complexite deja, le free c'est optional pour moi ici, l'objectif c'est de vraiment construire ft_strdup
+
 
 ## ex03 - read
 
