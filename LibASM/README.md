@@ -114,6 +114,11 @@ Interesting function where you see 2 new instructions ;
 => done here because we have to compare unsigned char (so we don't use movsx)
 => We do it on eax like this the other part is zeroed also.
 
+### ft_strdup
+
+Function where you have to reuse other functions ; ft_strlen and ft_strcpy.
+To do that you just have to declare them as extern.
+As ft_write you have to be careful avout the alignment of 16 bytes.
 
 ### to do later
 
@@ -121,8 +126,7 @@ Interesting function where you see 2 new instructions ;
 -NASM et LD
 -les registres
 -program section
--apres des petits points sur chaque fonctions comme il faut
-    genre strlen avec mon or (meme si je sais pas si je le garde faut que j'etudie un peu plus le probleme face a un mov rax, -1)
+-pourquoi l'alignement de 16 bytes => a cause des registres SSE (xmm0 a xmm15) qui font 128 bits => 16 bytes => du coup en correction attention a ca, on peut verifier par gdb
 
 ## RESOURCES
 
