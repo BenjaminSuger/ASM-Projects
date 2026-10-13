@@ -151,3 +151,51 @@ main:
 
 section .note.GNU-stack noalloc noexec nowrite progbits
 ```
+
+## ex03 - read
+
+```asm
+BUF_SIZE equ 6
+
+section .bss
+	dest: resb BUF_SIZE
+
+section .text
+	global _start
+	global ft_read
+	extern __errno_location
+
+ft_read:
+	mov rax, 0
+	syscall
+	cmp rax, 0
+	jge .fin
+	neg rax
+	push rax
+	call  __errno_location wrt ..plt
+	pop rdi
+	mov [rax], edi
+	mov rax, -1
+.fin:
+	ret
+
+_start:
+	mov rdi, 0
+	lea rsi, [rel dest]
+	mov rdx, BUF_SIZE
+	call ft_read
+	cmp rax, 0
+	jl .error
+	mov rax, 60
+	mov rdi, 0
+	syscall
+
+.error:
+	mov rax, 60
+	mov rdi, 1
+	syscall
+```
+
+C'est presque un copie colle de ft_write et pour etre honnete en le faisant j'ai regarder mon ft_write.
+
+Dans cette solution j'ai uniquement fait la demarche de pas ecrire avec write ou autres, pour verifier j'ai directement checker avec GDB l'output.

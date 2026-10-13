@@ -126,6 +126,17 @@ franchement vu la complexite deja, le free c'est optional pour moi ici, l'object
 
 ## ex03 - read
 
+On continue la logiqu de suivre la libasm ici avec un syscall a gerer sur read.
+
+Fonction tres proche du fonctionnement de ft_write, notre interet a nous est d'encapsuler la logique de la gestion de l'errno.
+
+Donc la aussi attention a bien utiliser __errno_location et donc comme d'habitude pour une fonction non leaf l'alignement a 16.
+
+Read prend en argument un buffer. Pareil que pour ft_strcpy => on peut soit passer par BSS soit passer par la stack.
+
+Pour gagner du temps, je vais passer par le BSS.
+
+
 ## ex04 - check_base
 
 ## ex05 - swap
