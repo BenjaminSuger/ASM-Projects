@@ -20,7 +20,8 @@ SRCS		= $(SRCS_DIR)/ft_strlen.s \
 		  $(SRCS_DIR)/ft_write.s \
 		  $(SRCS_DIR)/ft_strcmp.s \
 		  $(SRCS_DIR)/ft_strcpy.s \
-		  $(SRCS_DIR)/ft_strdup.s 
+		  $(SRCS_DIR)/ft_strdup.s \
+		  $(SRCS_DIR)/ft_read.s 
 
 
 BONUS_SRCS	=

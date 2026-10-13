@@ -134,8 +134,7 @@ As ft_write you have to be careful avout the alignment of 16 bytes.
 For preparing Libasm you should use the "Computing 101" path but also less known to people in the archives you'll find useful ressources in "Assembly crash course" (which is
 the first course done in asm by PWN College).
 
-[Algorithms for Modern Hardware](https://en.algorithmica.org/hpc/) : Not totally related to the subject. Goes deeper than needed for the project, but helped me learn how computers
-are working with modern hardware.
+[Linux Syscall table](https://filippo.io/linux-syscall-table/)
 
 [Tips for golfing in x86_64 machine code](https://codegolf.stackexchange.com/questions/132981/tips-for-golfing-in-x86-x64-machine-code) Where I learned about size instruction and tips for ft_strlen to put -1 at a minimum cost (or operator but not used in the strlen I did for other consideration)
 
@@ -168,6 +167,9 @@ are working with modern hardware.
 [(French) Assembly Basics](https://beta.hackndo.com/assembly-basics/)
 
 [(French) Introduction a GDB](https://beta.hackndo.com/introduction-a-gdb/)
+
+[Algorithms for Modern Hardware](https://en.algorithmica.org/hpc/) : Not totally related to the subject. Goes deeper than needed for the project, but helped me learn how computers
+are working with modern hardware.
 
 ## The use of AI
 
