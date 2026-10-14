@@ -51,7 +51,7 @@ ft_for_each avec le pointer de fonction
 
 -namespace https://asmtutor.com/#lesson17
 -ca serait bien de montrer un overflow je pense en asm parce que ma question de base sur les registres vs les variable (observable avec un code en c d'abord)
--un truc sur pointeur comme 42 piscine => du type ft_ft pour voir mais surement plus pour ce qui est piscine
+-des trucs de cybersecurite peut etre pour la piscine cyber
 
 
 ## Ressources
