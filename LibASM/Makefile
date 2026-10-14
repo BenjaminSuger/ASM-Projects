@@ -11,10 +11,11 @@
 # **************************************************************************** #
 
 NAME		= libasm.a
-ASFLAGS		= -f elf64
+ASFLAGS		= -f elf64 -I $(SRCS_DIR)/
 DEBUG_FLAGS	= -g -F dwarf
 SRCS_DIR	= srcs
 OBJS_DIR	= objs
+INCS		= $(SRCS_DIR)/list.inc
 
 SRCS		= $(SRCS_DIR)/ft_strlen.s \
 		  $(SRCS_DIR)/ft_write.s \
@@ -24,7 +25,10 @@ SRCS		= $(SRCS_DIR)/ft_strlen.s \
 		  $(SRCS_DIR)/ft_read.s 
 
 
-BONUS_SRCS	=
+BONUS_SRCS	= $(SRCS_DIR)/ft_list_size_bonus.s \
+		  $(SRCS_DIR)/ft_list_push_front_bonus.s \
+		  $(SRCS_DIR)/ft_list_sort_bonus.s \
+		  $(SRCS_DIR)/ft_list_remove_if_bonus.s
 
 OBJS		= $(SRCS:$(SRCS_DIR)/%.s=$(OBJS_DIR)/%.o)
 BONUS_OBJS	= $(BONUS_SRCS:$(SRCS_DIR)/%.s=$(OBJS_DIR)/%.o)
@@ -34,7 +38,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.s | $(OBJS_DIR)
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.s $(INCS) | $(OBJS_DIR)
 	nasm $(ASFLAGS) $< -o $@
 
 $(OBJS_DIR):

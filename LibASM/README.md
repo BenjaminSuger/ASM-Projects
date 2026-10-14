@@ -120,6 +120,37 @@ Function where you have to reuse other functions ; ft_strlen and ft_strcpy.
 To do that you just have to declare them as extern.
 As ft_write you have to be careful avout the alignment of 16 bytes.
 
+### struct and list.inc
+
+A very interesting part of the bonus is the use of struct. We know them from C programming language. In assembly programming it's very interesting to see them "crude". We knew from the begining it was a memory layout (with padding possible) but as we don't have any struct keyword (in some sort yes but keep reading this please) we see that it's mainly pionters arithmetic.
+
+Hopefully there is a way of writing the offset in a more beautiful way with NASM. 
+
+```asm
+struc t_list
+	.data:	resq 1
+	.next:	resq 1
+endstruc
+```
+
+The indication "resq 1" allow you to allocate 8 bytes the size of a pointer.
+
+So now if we want to use it we can simply do;
+
+```asm
+mov rax, [rdi + t_list.next]
+```
+
+Like this we have rax getting the content of next.
+
+We have 2 options to use this struc. First we can put it at the top of each of our files touching the stuctures. Second option like in Libft programming, we can use an include. It is very similar to do libft.h but here it's a list.inc.
+
+We will also include it at the beginning of the file where needed;
+
+```asm
+%include "list.inc"
+```
+
 ### to do later
 
 -image registres en haut de la pyramide pour le CPU et peut etre image CPU un peu
@@ -176,7 +207,7 @@ are working with modern hardware.
 For this project, AI was primarily used to correct the English in this document.
 It was also used to help me create tests for my functions.
 AI helps me also with practice exercises before doing libasm then I extend the practice side alone with various resources you can find here [LINK]
-Helps me to generate a cleaner version of my Makefile for debug option
+Helps me to generate a cleaner version of my Makefile for debug option and includes in bonus part.
 
 ## Why did I take this subject? What did I learn?
 
