@@ -1,5 +1,4 @@
 section .text
-	global _start
 	global ft_read
 	extern __errno_location
 
