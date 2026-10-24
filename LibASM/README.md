@@ -191,6 +191,8 @@ the first course done in asm by PWN College).
 
 [System Inside; ASM](https://0xax.dev/books/asm/)
 
+[What Happens When a CPU Receives an Unknown Instruction?](https://youtu.be/WtlGB-YVLOg?si=goHdHTmApaQdiONL)
+
 [(French) Conventions d'appel](https://beta.hackndo.com/conventions-d-appel/)
 
 [(French) Stack introduction](https://beta.hackndo.com/stack-introduction/)
