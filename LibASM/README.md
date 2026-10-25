@@ -151,6 +151,10 @@ We will also include it at the beginning of the file where needed;
 %include "list.inc"
 ```
 
+### test and cmp
+
+At some point I learned about the fact that 'test' is smaller than 'cmp' and try to change them as much as possible.
+
 ### to do later
 
 -image registres en haut de la pyramide pour le CPU et peut etre image CPU un peu

@@ -10,7 +10,7 @@ ft_list_size:
 .loop:
 	inc rcx
 	mov rdi, [rdi + t_list.next]
-	cmp rdi, 0
+	test rdi, rdi
 	jnz .loop
 .end:
 	mov rax, rcx

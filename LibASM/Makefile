@@ -25,10 +25,10 @@ SRCS		= $(SRCS_DIR)/ft_strlen.s \
 		  $(SRCS_DIR)/ft_read.s 
 
 
-BONUS_SRCS	= $(SRCS_DIR)/ft_list_size_bonus.s \
-		  $(SRCS_DIR)/ft_list_push_front_bonus.s \
-		  $(SRCS_DIR)/ft_list_sort_bonus.s \
-		  $(SRCS_DIR)/ft_list_remove_if_bonus.s
+BONUS_SRCS	= $(SRCS_DIR)/ft_list_size.s \
+		  $(SRCS_DIR)/ft_list_push_front_.s \
+		  $(SRCS_DIR)/ft_list_sort_.s \
+		  $(SRCS_DIR)/ft_list_remove_if_.s
 
 OBJS		= $(SRCS:$(SRCS_DIR)/%.s=$(OBJS_DIR)/%.o)
 BONUS_OBJS	= $(BONUS_SRCS:$(SRCS_DIR)/%.s=$(OBJS_DIR)/%.o)
