@@ -45,7 +45,6 @@ Small exercices ; strcmp, strcpy, swap, read, strdup, check_base, fizz_buzz
 #### 07 linked list
 Everything about linked list
 function from libasm; ft_list_push_front, ft_list_size, ft_list_sort, ft_list_remove_if
-ft_for_each avec le pointer de fonction
 
 #### 08 THE END
 

@@ -64,8 +64,33 @@ nasm -f elf64 ft_list_push_front.s -o ft_list_push_front.o
 gcc -Wall -Wextra -Werror exo2.c ft_list_push_front.o -o exo2
 ```
 
-## ex02 - ft_for_each
+## ex02 - ft_list_remove_if
 
-## ex03 - ft_list_remove_if
+Donc ici on a pas mal de pointeur de fonction => donc fonction non leaf donc il faut faire attention a nos alignement.
 
-## ex04 - ft_list_sort
+on va passer dans toutes nos nodes pour tester et free s'il faut. 
+
+La signature de la fonction ; 
+
+```C
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
+```
+
+On nous donne des details sur les fonctions 
+
+```
+(*cmp)(list_ptr->data, data_ref);
+(*free_fct)(list_ptr->data);
+```
+
+Donc ca veut dire qu'on va devoir faire notre free du noeud nous meme, la fonction de free_fct ne fait que free le content / la data.
+
+Ensuite ici il y a un autre soucis des le depart, qu'on a eu dans le precedent exercice mais plus grand ici; 
+
+J'ai 4 arguments ; rdi, rsi, rdx et rcx.
+Probleme a chaque call d'une fonction je vais pas etre sur qu'aucun de ces registres a pas bouge.
+
+La solution souvent c'etait de push => et apres on pop => probleme ici c'est que je vais devoir faire ca souvent. Donc une solution c'est d'utiliser des registres qui doivent pas etre modifier (rbx, r12 a r15) => mais moi aussi je dois pas les bouger. donc je vais les push sur la stack et les restore a la fin. tout ca pour les utiliser sans me soucier d'aucun probleme a ce niveau la.
+
+
+## ex03 - ft_list_sort

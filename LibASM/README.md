@@ -151,6 +151,10 @@ We will also include it at the beginning of the file where needed;
 %include "list.inc"
 ```
 
+### ft_list_remove_if
+
+First function where I really used the concept of register callee saved / caller saved because I have a lot of arguments. I used the rbx / r12 - r15 to save all my arguments before calling other functions.
+
 ### test and cmp
 
 At some point I learned about the fact that 'test' is smaller than 'cmp' and try to change them as much as possible.
