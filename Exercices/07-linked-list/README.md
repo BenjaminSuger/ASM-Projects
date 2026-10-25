@@ -42,6 +42,28 @@ Objectif trouver la taille de la list avec ft_list_size
 
 ## ex01 - ft_list_push_front
 
+Si on prend la definition de la fonction ; 
+
+"the function ft_list_push_front, which adds a new element of type t_list
+to the beginning of the list"
+
+en ayant cette signature de fonction donne ;
+
+```C
+void ft_list_push_front(t_list **begin_list, void *data);
+```
+
+(a noter que c'est une version legerement differente de ce qu'on avait eu en libft pour l'annee 2025 at least)
+
+Donc ca sous entend qu'on va devoir aussi ici allouer notre memoire nous meme, cree notre node.
+
+Donc comme d'habitude un extern malloc et un call a 
+
+```sh
+nasm -f elf64 ft_list_push_front.s -o ft_list_push_front.o
+gcc -Wall -Wextra -Werror exo2.c ft_list_push_front.o -o exo2
+```
+
 ## ex02 - ft_for_each
 
 ## ex03 - ft_list_remove_if
