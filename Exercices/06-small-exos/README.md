@@ -139,6 +139,31 @@ Pour gagner du temps, je vais passer par le BSS.
 
 ## ex04 - check_base
 
-## ex05 - swap
+Cet exercice est la pour nous aider a construire atoi_base. Comme pour l'ensemble de ce document je recommande de faire pwn college - computing 101 la partie "strings as number". Aussi dans un autre module avant, il y a un exercice qui implique un genre de set qui peut etre pas mal.
 
-## ex06 - fizz_buzz
+Mais ici c'est un helper qui va gerer que 2 choses; 
+*pas de doublon
+*pas de contenu interdit ; on doit avoir que des valeurs "a-zA-Z0-9" et caractere speciaux => c'est a dire pas de isspace() et de + ou -
+
+Pour ca on va cette fois utiliser un main.c 
+
+```C
+#include <stdio.h>
+
+int check_base(char *str);
+
+int main(int argc, char **argv) {
+	printf("is it good ? %d\n", check_base("01234567"));
+	printf("is it good ? %d\n", check_base("01234567 "));
+	printf("is it good ? %d\n", check_base("abcdefgATF"));
+	printf("is it good ? %d\n", check_base("abc-defgATF"));
+	printf("is it good ? %d\n", check_base("abcdefga"));
+}
+```
+
+et ensuite pour compile
+
+```sh
+nasm -f elf64 -g -F dwarf check_base.s check_base.o
+gcc ex04.c check_base.o
+```

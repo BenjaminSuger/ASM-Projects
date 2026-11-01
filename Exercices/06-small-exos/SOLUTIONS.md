@@ -199,3 +199,76 @@ _start:
 C'est presque un copie colle de ft_write et pour etre honnete en le faisant j'ai regarder mon ft_write.
 
 Dans cette solution j'ai uniquement fait la demarche de pas ecrire avec write ou autres, pour verifier j'ai directement checker avec GDB l'output.
+
+
+## ex04 check base
+
+Dans l'enonce j'ai indique de regarder pour un exercice avec un "set". 
+
+Si on veut regarder s'il y a un doublon, on pourrait faire une solution un peu simple O(n^2) => je parcours pour chaque char la string pour voir si je rencontre un autre.
+
+C'est une solution possible et acceptable pour ce qu'on fait.
+
+Mais on connait aussi une autre solution avec un set => pas de doublon dans un set. C'est un truc un peu leetcode style en plus donc c'est bien ca nous fait travailler ca. Dans un exercice de pwn college on a vu comment le mettre en place.
+On connait les valeurs que peuvent prendre notre char => 256.
+
+Du coup ce qu'on va faire c'est reserver de la stack => pour mettre une indication qu'on a croise cette valeur. Comme ca on aura;
+debut de notre stack + <valeur qu'on rencontre> 
+c'est des pointers arithmetics classique. Si la casse est vide => all good
+si la casse est pas vide => doublon.
+
+Pour ca il faut reserver l'espace "sub rsp, 256" et ensuite la mettre a -1 (donc quand meme un passage a O(n)) => mais ensuite on va pas mettre n'importe quoi dedans => on va mettre l'index ou on a croiser la valeur 
+
+Pourquoi mettre a -1 ? parce que 0 est une valeur possible. La meilleur solution serait surement de prendre une plus grande quantite qu'un BYTE pour mettre une valeur mais normalement par les interdictions qu'on a, on aura jamais de probleme.
+
+```asm
+section .text
+	global check_base
+
+check_base:
+	sub rsp, 256
+	mov rcx, -1
+.zero:
+	inc rcx
+	mov BYTE [rsp + rcx], -1
+	cmp rcx, 255
+	jne .zero
+	mov rcx, -1
+.fill:
+	inc rcx
+	cmp BYTE [rdi + rcx], 0
+	je .end
+	movzx r8, BYTE [rdi + rcx]
+	cmp BYTE [rsp + r8], -1
+	jne .wrong
+	mov BYTE [rsp + r8], cl ; attention a la taille ici 
+	cmp r8, 32 ; si c'est un espace
+	je .wrong
+	cmp r8, 43 ; si c'est un +
+	je .wrong
+	cmp r8, 45 ; si c'est un -
+	je .wrong
+	sub r8, 9
+	cmp r8, 4 ; si c'est dans le range des spaces
+	jbe .wrong
+	jmp .fill
+.end:
+	add rsp, 256
+	mov rax, 1
+	ret
+.wrong:
+	add rsp, 256
+	mov rax, 0
+	ret
+
+```
+
+Pour le test des isspaces() on utilise une comparaison en regardant le range (astuce sur pwn college aussi)
+
+Concretement c'est ce qu'on va utiliser pour le prochain exercice......atoi_base !!!
+Le probleme qu'on va avoir ca va surtout etre lie a cette stack qu'on va essayer de faire vivre avant le call a check base. Comme c'est une fonction leaf ca va etre ok mais il va falloir bien gerer tout ca
+
+
+## ex05 atoi_base
+
+

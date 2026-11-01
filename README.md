@@ -40,7 +40,7 @@ Write and strlen
 Writing Assembly and using it with C program in various ways
 
 #### 06 small exos
-Small exercices ; strcmp, strcpy, swap, read, strdup, check_base, fizz_buzz
+Small exercices ; strcmp, strcpy, swap, read, strdup, check_base
 
 #### 07 linked list
 Everything about linked list
