@@ -253,6 +253,8 @@ check_base:
 	jbe .wrong
 	jmp .fill
 .end:
+    cmp rcx, 2
+    jb .wrong
 	add rsp, 256
 	mov rax, 1
 	ret
