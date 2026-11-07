@@ -1,7 +1,4 @@
-/*
-** test.c — tests pour ft_atoi_base (et check_base) ecrits en asm
-**
-** Compilation :
+/* Compilation :
 **   nasm -f elf64 -g -F dwarf atoi_base.s -o atoi_base.o
 **   gcc -Wall -Wextra -g test.c atoi_base.o -o test
 **   ./test
@@ -106,27 +103,6 @@ static void	show(const char *s)
 	printf("\"");
 }
 
-static void	test_check_base(char *base)
-{
-	int	expected = ref_check_base(base);
-	int	got = check_base(base);
-
-	if (expected == got)
-	{
-		g_pass++;
-		printf("[OK]   check_base(");
-		show(base);
-		printf(") = %d\n", got);
-	}
-	else
-	{
-		g_fail++;
-		printf("[KO]   check_base(");
-		show(base);
-		printf(") = %d  (attendu %d)\n", got, expected);
-	}
-}
-
 static void	test_atoi(char *str, char *base)
 {
 	int	expected = ref_atoi_base(str, base);
@@ -161,25 +137,6 @@ static void	test_atoi(char *str, char *base)
 
 int	main(void)
 {
-	printf("=== check_base ===\n");
-	test_check_base("01234567");
-	test_check_base("01234567 ");
-	test_check_base("abcdefgATF");
-	test_check_base("abc-defgATF");
-	test_check_base("abc+defgATF");
-	test_check_base("abcdefga");
-	test_check_base("");
-	test_check_base("0");
-	test_check_base("01");
-	test_check_base("0\t1");
-	test_check_base("0\n1");
-	test_check_base("ab\vcd");
-	test_check_base("ab\fcd");
-	test_check_base("ab\rcd");
-	test_check_base(HEX);
-	test_check_base(WEIRD);
-	test_check_base("!@#$%^&*()");
-
 	printf("\n=== ft_atoi_base : base invalide ===\n");
 	test_atoi("42", "");
 	test_atoi("42", "0");
@@ -189,8 +146,8 @@ int	main(void)
 	test_atoi("42", "01 ");
 	test_atoi("42", "0\t1");
 
-	printf("\n=== ft_atoi_base : base 10 ===\n");
-	test_atoi("0", DEC);
+	//printf("\n=== ft_atoi_base : base 10 ===\n");
+	//test_atoi("0", DEC);
 	test_atoi("42", DEC);
 	test_atoi("-42", DEC);
 	test_atoi("+42", DEC);

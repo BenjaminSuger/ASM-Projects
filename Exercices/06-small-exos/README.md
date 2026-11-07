@@ -167,3 +167,8 @@ et ensuite pour compile
 nasm -f elf64 -g -F dwarf check_base.s check_base.o
 gcc ex04.c check_base.o
 ```
+
+## ex05 - atoi_base a la 42
+
+il faut faire atoi base a la 42 libasm, il y a aura pas plus d'explication que ca.
+Mais le fichier test.c permet de faire les tests complet de plein de cas.
