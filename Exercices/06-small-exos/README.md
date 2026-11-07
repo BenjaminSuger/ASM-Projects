@@ -170,5 +170,7 @@ gcc ex04.c check_base.o
 
 ## ex05 - atoi_base a la 42
 
-il faut faire atoi base a la 42 libasm, il y a aura pas plus d'explication que ca.
+il faut faire atoi base a la 42 piscine, il y a aura pas plus d'explication que ca.
 Mais le fichier test.c permet de faire les tests complet de plein de cas.
+La majeur difference avec celui de libasm c'est que dans libasm on demande un comportement comme ft_atoi => qui replique atoi => qui replique strtol sur le comportement des signes => "+-+-42" => renvoie donc 0 alors que nous on peut rendre 42.
+C'est un petit detail mais a prendre en compte.
