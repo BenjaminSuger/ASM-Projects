@@ -159,6 +159,30 @@ First function where I really used the concept of register callee saved / caller
 
 At some point I learned about the fact that 'test' is smaller than 'cmp' and try to change them as much as possible.
 
+### ft_atoi_base - check base
+
+I didn't want to do the same thing as I did in libasm => O(n^2) / imbricated loops. I learned a tips from pwn.college for this => use a sort of set I create myself. For that I reserve big values in stack frames => "zero" them (in my case it's 255) => like this I will know if I already set a value or not using an offset.
+
+That's what I learned from pwn.college but decide to go further with this idea. I set up the value of this "set" to the value it will be used later for conversion.
+
+### ft_atoi_base - first time
+
+This is the first time in the libasm I had to really uused the concept of caller-savec / callee-saved registers at his maximum. 
+
+At the beginning, I start saving my arguments inside r12 and r13 but to do that I first need to save r12 and r13
+
+```asm
+	push r12
+	push r13
+	mov r12, rdi
+	mov r13, rsi
+```
+
+### ft_atoi_base vs ft_atoi_base piscine
+
+In the Exercices part of the repo, I create a version of atoi_base like in the piscine. But it is not what we want ! They want the version like ft_atoi => which is imiplied to copy "atoi" => which change how we saw signs => atoi refers to strtol which only take one "+" or "-" sign.
+
+
 ### to do later
 
 -image registres en haut de la pyramide pour le CPU et peut etre image CPU un peu
