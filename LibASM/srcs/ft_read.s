@@ -3,7 +3,7 @@ section .text
 	extern __errno_location
 
 ft_read:
-	mov rax, 0
+	xor eax, eax
 	syscall
 	test rax, rax
 	jge .fin
