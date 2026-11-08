@@ -182,6 +182,12 @@ At the beginning, I start saving my arguments inside r12 and r13 but to do that 
 
 In the Exercices part of the repo, I create a version of atoi_base like in the piscine. But it is not what we want ! They want the version like ft_atoi => which is imiplied to copy "atoi" => which change how we saw signs => atoi refers to strtol which only take one "+" or "-" sign.
 
+### ft_list_remove_if
+
+An exercice about pointers ! Not as easy I though it will be. The strategy I used is to change the pointers content if needed.
+
+But the most intriguing thing I learn with this one, is the following => in the system V ABI, it is said that if you have an int as a return it is possible that the top of rax is not changed. So the test rax, rax can be wrong ! because they have moved a lower part of the register and not eax (so not the 32 other bits). But at the same time it seems that the compiler do the right thing. So it's a little bogus for me.
+
 
 ### to do later
 

@@ -26,7 +26,7 @@ ft_list_remove_if:
 	mov rdi, [r12 + t_list.data]
 	mov rsi, r13
 	call r14
-	test rax, rax
+	test eax, eax
 	jz .free
 	lea rbx, [r12 + t_list.next]
 	jmp .loop

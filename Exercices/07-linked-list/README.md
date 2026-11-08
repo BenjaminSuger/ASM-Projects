@@ -94,3 +94,11 @@ La solution souvent c'etait de push => et apres on pop => probleme ici c'est que
 
 
 ## ex03 - ft_list_sort
+
+Pour tester ;
+
+```sh
+nasm -f elf64 ft_list_sort.s -o ft_list_sort.o
+gcc -Wall -Wextra -Werror exo4.c ft_list_sort.o -o exo4
+valgrind ./exo4
+```
