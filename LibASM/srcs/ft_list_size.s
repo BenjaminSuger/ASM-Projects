@@ -5,7 +5,7 @@ section .text
 
 ft_list_size:
 	mov rcx, 0
-	cmp rdi, 0
+	test rdi, rdi
 	je .end
 .loop:
 	inc rcx

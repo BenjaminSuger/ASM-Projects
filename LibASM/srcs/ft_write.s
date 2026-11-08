@@ -5,7 +5,7 @@ section .text
 ft_write:
 	mov rax, 1 
 	syscall
-	cmp rax, 0
+	test rax, rax
 	jge .fin
 	neg rax
 	push rax

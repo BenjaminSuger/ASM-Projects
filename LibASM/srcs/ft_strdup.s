@@ -10,7 +10,7 @@ ft_strdup:
 	inc rax
 	mov rdi, rax
 	call malloc wrt ..plt
-	cmp rax, 0
+	test rax, rax
 	je .end
 	mov rdi, rax
 	mov rsi, QWORD [rsp]
