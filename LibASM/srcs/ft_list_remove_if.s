@@ -1,7 +1,4 @@
-struc t_list
-    .data resq 1
-    .next resq 1
-endstruc
+%include "list.inc"
 
 section .text
 	global ft_list_remove_if
