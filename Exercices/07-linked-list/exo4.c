@@ -12,16 +12,11 @@ void	ft_list_sort(t_list **begin_list, int (*cmp)());
 
 static int	g_fail = 0;
 
-/* ---------- comparateurs ---------- */
-
-/* strcmp renvoie n'importe quel entier, pas seulement -1/0/1 : bon test. */
 static int	cmp_str(const char *a, const char *b)
 {
 	return (strcmp(a, b));
 }
 
-/* data contient directement un entier (cast), pas un pointeur : verifie
-** que ft_list_sort ne presuppose rien sur le type de data. */
 static int	cmp_int(void *a, void *b)
 {
 	long	x = (long)a;
@@ -33,8 +28,6 @@ static int	cmp_int(void *a, void *b)
 		return (1000);
 	return (0);
 }
-
-/* ---------- helpers ---------- */
 
 static t_list	*build_str(const char **words, int n)
 {
@@ -106,8 +99,6 @@ static void	print_str(t_list *lst)
 	printf("\n");
 }
 
-/* Compte les noeuds avec une borne : si la liste boucle sur elle-meme
-** (next mal raccorde), on s'arrete au lieu de tourner a l'infini. */
 static int	count_bounded(t_list *lst, int max)
 {
 	int	n = 0;
@@ -127,8 +118,6 @@ static void	check(int ok, const char *what)
 		g_fail++;
 }
 
-/* Verifie : meme nombre de noeuds, pas de cycle, ordre croissant selon cmp,
-** et que l'ensemble des data est preserve (rien perdu, rien duplique). */
 static void	verify(t_list *lst, void **orig, int n, int (*cmp)())
 {
 	int		i;
@@ -243,7 +232,6 @@ int	main(void)
 	run_str("tous identiques", w_same, 3, "x -> x -> x");
 	run_str("prefixes (strcmp sur longueurs differentes)", w_pref, 4,
 		"a -> ab -> abc -> abcd");
-
 	srand(42);
 	for (i = 0; i < 200; i++)
 		big[i] = rand() % 1000 - 500;
@@ -251,7 +239,6 @@ int	main(void)
 	for (i = 0; i < 50; i++)
 		rev[i] = 50 - i;
 	run_int("inverse, pire cas pour un tri par insertion/bulle", rev, 50);
-
 	printf("== begin_list NULL / liste vide ==\n");
 	ft_list_sort(NULL, cmp_str);
 	ft_list_sort(&empty, cmp_str);

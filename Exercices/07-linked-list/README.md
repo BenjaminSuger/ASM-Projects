@@ -95,10 +95,30 @@ La solution souvent c'etait de push => et apres on pop => probleme ici c'est que
 
 ## ex03 - ft_list_sort
 
-Pour tester ;
+Le prototype de la fonction en C ; 
+```C
+void ft_list_sort(t_list **begin_list, int (*cmp)())
+```
+
+Pour cette exercice il y a un fichier exo4.c
+
+Sur la methode pour le tri, pendant longtemps j'ai hesite sur les 2 strategies ; 
+*tri a bulle degeulasse
+*merge sort O(N log N)
+
+Meme si merge sort est super et c'est la chose a faire, le plus simple reste le tri a bulle.
+
+C'est la derniere fonction de la libasm, restons sur un truc simple pour finir et s'en sortir.
+
+mais ca implique qu'il faut aussi avoir ft_list_size.s qu'on va mettre en extern aussi
+
+Pour compiler ensuite on fait comme d'habitude ; 
 
 ```sh
+nasm -f elf64 ft_list_size.s -o ft_list_size.o
 nasm -f elf64 ft_list_sort.s -o ft_list_sort.o
-gcc -Wall -Wextra -Werror exo4.c ft_list_sort.o -o exo4
+gcc -Wall -Wextra -Werror exo4.c ft_list_sort.o ft_list_size.o -o exo4 --std=gnu11
 valgrind ./exo4
 ```
+
+Le flag --std=gnu11 c'est juste pour faire fonctionner le ficher de test en C de la bonne maniere.
