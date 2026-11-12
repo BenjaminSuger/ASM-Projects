@@ -167,7 +167,7 @@ That's what I learned from pwn.college but decide to go further with this idea. 
 
 ### ft_atoi_base - first time
 
-This is the first time in the libasm I had to really uused the concept of caller-savec / callee-saved registers at his maximum. 
+This is the first time in the libasm I had to really uused the concept of caller-savee / callee-saved registers at his maximum. 
 
 At the beginning, I start saving my arguments inside r12 and r13 but to do that I first need to save r12 and r13
 
@@ -182,12 +182,13 @@ At the beginning, I start saving my arguments inside r12 and r13 but to do that 
 
 In the Exercices part of the repo, I create a version of atoi_base like in the piscine. But it is not what we want ! They want the version like ft_atoi => which is imiplied to copy "atoi" => which change how we saw signs => atoi refers to strtol which only take one "+" or "-" sign.
 
-### ft_list_remove_if
+### ft_list_remove_if and partial registers stall (or not What the helly is happening) !
 
 An exercice about pointers ! Not as easy I though it will be. The strategy I used is to change the pointers content if needed.
 
-But the most intriguing thing I learn with this one, is the following => in the system V ABI, it is said that if you have an int as a return it is possible that the top of rax is not changed. So the test rax, rax can be wrong ! because they have moved a lower part of the register and not eax (so not the 32 other bits). But at the same time it seems that the compiler do the right thing. So it's a little bogus for me.
+But the most intriguing thing I learn with this one, is the following => in the system V ABI, it is said that if you have an int as a return it is possible that the top of rax is not changed. We can only assure the value of eax and not of rax. Why ? Because it is possible that the function used for exemple al or ah which does not reset the higher bits. This is called a partial register stall ! And in this exercice (and the following) I discovered it the hard way ! Or so I thought..... It my case it was not a partial register stall (even if it can happen), it was the fact I forgot strcmp can return negative values => 0xFFFFFFFF but if you read it with rax you have 0x00000000FFFFFFFF which is not the same value => my cmp (if) will be trigger with positive values when it's not the case. 
 
+With the discovery of this concept, I learn also by the partial flag stall. An instruction like inc / dec modify flags except one (CF).
 
 ### to do later
 
@@ -196,6 +197,8 @@ But the most intriguing thing I learn with this one, is the following => in the 
 -les registres
 -program section
 -pourquoi l'alignement de 16 bytes => a cause des registres SSE (xmm0 a xmm15) qui font 128 bits => 16 bytes => du coup en correction attention a ca, on peut verifier par gdb
+-MOVZX et MOVSX
+-dependency sur les instructions a bien creuse
 
 ## RESOURCES
 
@@ -205,9 +208,14 @@ the first course done in asm by PWN College).
 
 [Linux Syscall table](https://filippo.io/linux-syscall-table/)
 
+[The microarchitecture of Intel, AMD and VIA CPUs](https://www.agner.org/optimize/microarchitecture.pdf)
+
 [Tips for golfing in x86_64 machine code](https://codegolf.stackexchange.com/questions/132981/tips-for-golfing-in-x86-x64-machine-code) Where I learned about size instruction and tips for ft_strlen to put -1 at a minimum cost (or operator but not used in the strlen I did for other consideration)
 
 [Set all bits in CPU register to 1 efficiently](https://stackoverflow.com/questions/45105164/set-all-bits-in-cpu-register-to-1-efficiently)
+
+[Why do x86-64 instructions on 32-bit registers zero the upper part of the full 64-bit register?](https://stackoverflow.com/questions/11177137/why-do-x86-64-instructions-on-32-bit-registers-zero-the-upper-part-of-the-full-6)
+
 
 [x86 video playlist from OliveStem](https://www.youtube.com/watch?v=yBO-EJoVDo0&list=PL2EF13wm-hWCoj6tUBGUmrkJmH1972dBB)
 
