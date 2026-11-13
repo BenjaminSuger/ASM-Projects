@@ -54,6 +54,13 @@ The "_64" is here to precise it's 64 bits.
 
 This whole project is built for this architecture.
 
+### Memory Hierarchy
+
+![img](img/MemoryHierarchy.jpg)
+
+With assembly you are manipulating registers, the lowest level usable by humans in programmig. They are also very fast to use and manipulate as you can see on the above image.
+
+
 ### What is the system V ABI ?
 
 System V ABI is a standard specification that defines low-level binary compatibility for compiled application programs running on Unix and Unix-like operating systems.
@@ -189,16 +196,6 @@ An exercice about pointers ! Not as easy I though it will be. The strategy I use
 But the most intriguing thing I learn with this one, is the following => in the system V ABI, it is said that if you have an int as a return it is possible that the top of rax is not changed. We can only assure the value of eax and not of rax. Why ? Because it is possible that the function used for exemple al or ah which does not reset the higher bits. This is called a partial register stall ! And in this exercice (and the following) I discovered it the hard way ! Or so I thought..... It my case it was not a partial register stall (even if it can happen), it was the fact I forgot strcmp can return negative values => 0xFFFFFFFF but if you read it with rax you have 0x00000000FFFFFFFF which is not the same value => my cmp (if) will be trigger with positive values when it's not the case. 
 
 With the discovery of this concept, I learn also by the partial flag stall. An instruction like inc / dec modify flags except one (CF).
-
-### to do later
-
--image registres en haut de la pyramide pour le CPU et peut etre image CPU un peu
--NASM et LD
--les registres
--program section
--pourquoi l'alignement de 16 bytes => a cause des registres SSE (xmm0 a xmm15) qui font 128 bits => 16 bytes => du coup en correction attention a ca, on peut verifier par gdb
--MOVZX et MOVSX
--dependency sur les instructions a bien creuse
 
 ## RESOURCES
 
