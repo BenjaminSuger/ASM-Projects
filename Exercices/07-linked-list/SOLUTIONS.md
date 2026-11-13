@@ -143,3 +143,97 @@ Ici on va a chaque fois utilise notre pointeur rbx (on a charge le premier argum
 
 Dans le cas ou on a rien a supprime, on avance simplement sur next => lea => et r12 va recuperer
 Dans le cas ou on doit supprimer le node => on va juste en fait changer vers quoi le pointeur pointe => d'ou le mov sur le contenue avec mov [rbx], rax => qui lui meme contient le next.
+
+
+## ex03 - ft_list_sort
+
+```asm
+struc t_list
+    .data resq 1
+    .next resq 1
+endstruc
+
+section .text
+	global ft_list_sort
+	extern ft_list_size
+
+ft_list_sort:
+	cmp rdi, 0
+	je .finish
+	cmp rsi, 0
+	je .finish
+
+	push r12 ; t_list **begin_list
+	push r13 ; int (*cmp)()
+	push rbx
+	push r14
+	mov rbx, 0
+	mov r12, rdi
+	mov r13, rsi
+	mov rdi, [rdi]
+	sub rsp, 8
+	call ft_list_size
+	add rsp, 8
+	cmp rax, 1
+	jle .end
+	mov rcx, rax
+.loop:
+	inc rbx
+	cmp rcx, rbx
+	je .end 
+	mov r14, [r12] 
+	jmp .pass
+
+.pass: 
+	cmp QWORD [r14 + t_list.next], 0
+	je .loop
+	mov rdi, [r14 + t_list.data]
+	mov rsi, [r14 + t_list.next]
+	mov rsi, [rsi + t_list.data]
+	push rcx
+	call r13
+	pop rcx
+	test eax, eax
+	jg .switch
+	mov r14, [r14 + t_list.next]
+	jmp .pass
+.switch: 
+	mov rdi, [r14 + t_list.data] ; courant
+	mov rsi, [r14 + t_list.next]
+	mov rsi, [rsi + t_list.data] ; suivant
+	mov [r14 + t_list.data], rsi ; donc la j'ai change le node courant
+	mov rax, [r14 + t_list.next] ; je pourrais opti plus tard quand ca va marche
+	mov [rax + t_list.data], rdi ; donc la j'ai change le node suivant
+	mov r14, [r14 + t_list.next]
+	jmp .pass
+.end:
+	pop r14
+	pop rbx
+	pop r13
+	pop r12
+.finish:
+	ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits
+```
+
+Dans cette exercice j'ai essaye de faire quelque chose que j'ai vu plus souvent dans godbolt une seul fonction mais avec pas mal de label pour les boucles. Je pense que c'est le premier exercice que j'ai realise un peu dans ce genre. 
+
+donc la loop va etre la premiere boucle tandis que pass c'est la boucle imbrique dedans.
+
+chaque fois qu'on identifie le compare renvoie un ">" alors on fait un switch.
+Le switch (pas de fancy xor sorry not sorry) change les donnees directement.
+
+Il y a un point interessant c'est le chargement ; 
+
+```asm
+mov rdi, [r14 + t_list.next + t_list.data] 
+```
+ce genre de code ne fonctionne pas donc il faut bien prendre en 2 etapes (il y a surement une autres methode avec lea mais j'ai pas trouve un truc sympa et claire) 
+
+en 2 etapes ; 
+
+```asm
+mov rsi, [r14 + t_list.next]
+mov rsi, [rsi + t_list.data] ; suivant
+```
